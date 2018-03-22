@@ -1,0 +1,67 @@
+<span class="arrow arrow-top"></span>
+<div class="activity-type">
+    <div class="activity">
+        <a href="javascript:" class="{{automationFilter.activityType === 'all'?'select':''}}"
+           data-ng-click="automationFilter.activityType = 'all'">Show All Activities</a>
+    </div>
+    <div class="activity">
+        <a href="javascript:" class="{{automationFilter.activityType === 'past'?'select':''}}"
+           data-ng-click="automationFilter.activityType = 'past'">Show Past Activity</a>
+    </div>
+    <div class="activity">
+        <a href="javascript:" class="{{automationFilter.activityType === 'upcoming'?'select':''}}"
+           data-ng-click="automationFilter.activityType = 'upcoming'">Show Upcoming Activity</a>
+    </div>
+</div>
+<!-- End activity-type-->
+
+<div class="action-type">
+    <div class="action-header" data-ng-class="{'collaps':collapsLevels}" data-ng-init="collapsLevels = false"
+         data-ng-click="collapsLevels = !collapsLevels">Levels
+    </div>
+
+    <div data-ng-if="!collapsLevels">
+        <div class="action">Al Levels
+            <a href="javascript:" class="toggle-box pull-right {{automationFilter.levels.all?'checked':''}}"
+               data-ng-click="automationFilter.levels.all = !automationFilter.levels.all"></a>
+        </div>
+        <div class="action">Application Level
+            <a href="javascript:" class="toggle-box pull-right {{automationFilter.levels.application?'checked':''}}"
+               data-ng-click="automationFilter.levels.application = !automationFilter.levels.application"></a>
+        </div>
+        <div class="action">Environment Level
+            <a href="javascript:" class="toggle-box pull-right {{automationFilter.levels.environment?'checked':''}}"
+               data-ng-click="automationFilter.levels.environment = !automationFilter.levels.environment"></a>
+        </div>
+        <div class="action">Server Level
+            <a href="javascript:" class="toggle-box pull-right {{automationFilter.levels.server?'checked':''}}"
+               data-ng-click="automationFilter.levels.server = !automationFilter.levels.server"></a>
+        </div>
+    </div>
+</div>
+<!-- End levels-->
+
+<div class="action-type">
+    <div class="action-header" data-ng-class="{'collaps':collapsDiskSize}" data-ng-init="collapsDiskSize = false"
+         data-ng-click="collapsDiskSize = !collapsDiskSize">Action Type
+    </div>
+    <div data-ng-if="!collapsDiskSize">
+        <div class="action">Disk Size
+            <a href="javascript:" class="toggle-box pull-right {{automationFilter.actionTypes.diskSize?'checked':''}}"
+               data-ng-click="automationFilter.actionTypes.diskSize = !automationFilter.actionTypes.diskSize"></a>
+        </div>
+        <div class="action">Patch
+            <a href="javascript:" class="toggle-box pull-right {{automationFilter.actionTypes.patch?'checked':''}}"
+               data-ng-click="automationFilter.actionTypes.patch = !automationFilter.actionTypes.patch"></a>
+        </div>
+        <div class="action">Downsize Opt Out
+            <a href="javascript:" class="toggle-box pull-right {{automationFilter.actionTypes.downSize?'checked':''}}"
+               data-ng-click="automationFilter.actionTypes.downSize = !automationFilter.actionTypes.downSize"></a>
+        </div>
+        <div class="action">Upgrade Opt Out
+            <a href="javascript:" class="toggle-box pull-right {{automationFilter.actionTypes.upgrade?'checked':''}}"
+               data-ng-click="automationFilter.actionTypes.upgrade = !automationFilter.actionTypes.upgrade"></a>
+        </div>
+    </div>
+</div>
+<!-- End action-type-->

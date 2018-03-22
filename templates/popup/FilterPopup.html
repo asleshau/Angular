@@ -1,0 +1,41 @@
+<span class="arrow arrow-top"></span>
+<div class="activity-type">
+    <div class="activity">
+        <a href="javascript:" class="{{sidebarFilter.activityType === 'all'?'select':''}}"
+           data-ng-click="sidebarFilter.activityType = 'all'">Show All Activities</a>
+    </div>
+    <div class="activity">
+        <a href="javascript:" class="{{sidebarFilter.activityType === 'past'?'select':''}}"
+           data-ng-click="sidebarFilter.activityType = 'past'">Show Past Activity</a>
+    </div>
+    <div class="activity">
+        <a href="javascript:" class="{{sidebarFilter.activityType === 'upcoming'?'select':''}}"
+           data-ng-click="sidebarFilter.activityType = 'upcoming'">Show Upcoming Activity</a>
+    </div>
+</div>
+<!-- End activity-type-->
+
+<div class="action-type">
+    <div class="action-header" data-ng-class="{'collaps':collapsAction}" data-ng-init="collapsAction = false" data-ng-click="collapsAction = !collapsAction">Action Type
+    </div>
+    <div data-ng-if="!collapsAction">
+
+        <div class="action">Disk Size
+            <a href="javascript:" class="toggle-box pull-right {{sidebarFilter.actionTypes.diskSize?'checked':''}}"
+               data-ng-click="sidebarFilter.actionTypes.diskSize = !sidebarFilter.actionTypes.diskSize"></a>
+        </div>
+        <div class="action">Patch
+            <a href="javascript:" class="toggle-box pull-right {{sidebarFilter.actionTypes.patch?'checked':''}}"
+               data-ng-click="sidebarFilter.actionTypes.patch = !sidebarFilter.actionTypes.patch"></a>
+        </div>
+        <div class="action">Downsize Opt Out
+            <a href="javascript:" class="toggle-box pull-right {{sidebarFilter.actionTypes.downSize?'checked':''}}"
+               data-ng-click="sidebarFilter.actionTypes.downSize = !sidebarFilter.actionTypes.downSize"></a>
+        </div>
+        <div class="action">Upgrade Opt Out
+            <a href="javascript:" class="toggle-box pull-right {{sidebarFilter.actionTypes.upgrade?'checked':''}}"
+               data-ng-click="sidebarFilter.actionTypes.upgrade = !sidebarFilter.actionTypes.upgrade"></a>
+        </div>
+    </div>
+</div>
+<!-- End action-type-->

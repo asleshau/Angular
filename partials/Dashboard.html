@@ -1,0 +1,238 @@
+<div class="page-top clearfix">
+    <div class="page-title">
+        <h3 class="title pull-left">Dashboard</h3>
+        <div class="server-status pull-right">
+            <div class="server running">
+                <span class="type">Running</span>
+                <span class="count">{{header.running_servers}}</span>
+            </div>
+            <div class="server standby">
+                <span class="type">Standby</span>
+                <span class="count">{{header.standby_servers}}</span>
+            </div>
+            <div class="server shutdown">
+                <span class="type">Shutdown</span>
+                <span class="count">{{header.stopped_servers}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="server-time text-center">
+        <div class="time-hold">
+            Uptime: <span class="up">{{header.uptime}}</span> <span class="hour">hours</span>
+        </div>
+        <div class="time-hold">
+            Downtime: <span class="down">{{header.downtime}}</span> <span class="hour">hours</span>
+        </div>
+        <div class="time-hold">
+            Cost Savings Overtime: <span class="over">{{header.costSavings}}</span> <span class="hour">/month</span>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <div class="pull-left action-holder">
+        <a href="javascript:" id="sort-by" class="filter pull-left min" data-ng-class="{'active':sortOptions.sortBy}" data-ng-click="sortOptions.sortBy=true">Auto arrange modules</a>
+            <div data-ng-include="'templates/popup/SortPopup.html'" data-off-click="sortOptions.sortBy = false" data-off-click-filter="'#sort-by'" data-off-click-if="sortOptions.sortBy" class="popup sort-popup animate-if" data-ng-if="sortOptions.sortBy"></div>
+            </div>
+        <a href="javascript:" data-ng-click="isModule = true;moduleSearch=''" class="module-trigger pull-right"></a>
+    </div>
+</div>
+<!-- End page-header-->
+
+<div data-ng-scrollbars class="page-content">
+    <div data-ng-class="{'with-sidebar':isShowModule('ACTIVITIES MODULE')}" class="column-content with-sidebar pull-left">
+        <div class="row">
+            <div class="col-md-6" data-ng-repeat="app in apps">
+                <div class="box" data-ng-class="{'show-action':app.showAction}">
+                    <div class="header">
+                        <h4 class="{{app.status}}">
+                            <a href="javascript:" data-ui-sref="applicationDetails" data-uib-tooltip="{{app.name}}">{{app.app_name}}</a>
+
+                            <span class="actions pull-right">
+                                <a href="javascript:" class="pull-right action" data-ng-click="app.showAction=true;"></a>
+                                <a href="javascript:" data-ng-click="showAutomationPopup(app.app_name)" class="pull-right schedule"></a>
+                            </span>
+                        </h4>
+                        <div data-off-click="app.showAction=false;" data-off-click-filter="'.action'" class="action-popup animate-if" data-ng-if="app.showAction">
+                            <a href="javascript:" class="close" data-ng-click="app.showAction=false"></a>
+                            <a href="javascript:" class="action-item schedule" data-ng-click="showAutomationPopup(app.app_name)">View Schedule</a>
+                            <a href="javascript:" class="action-item remove" data-ng-click="$parent.remove(apps,app)">Remove Module</a>
+                        </div>
+                    </div>
+                    <!-- End header-->
+                    <div class="content">
+                        <div class="environment-holer">
+                            <div class="pull-left">
+                                <span data-popover-is-open="app.isOpen" data-ng-click="EnvironmentPopover.open(app)" data-uib-popover-template="'templates/popup/EnviromentPopup.html'" data-popover-placement="right" data-uib-popover><span class="val">{{app.environments}}</span> Environments</span>
+                            </div>
+                            <div class="server pull-right">
+                                <span data-popover-is-open="app.isServerOpen" data-ng-click="ServerPopover.open(app)" data-uib-popover-template="'templates/popup/ServerPopup.html'" data-popover-placement="right" data-uib-popover><span class="val">{{app.servers}}</span> Servers</span>
+                            </div>
+                        </div>
+                        <!-- End comment-holder-->
+
+                        <div class="details">
+                            <div>Downtime <span>(hours)</span>: <span class="val down pull-right">{{app.downtime}}</span> </div>
+                            <div>Activities Scheduled<span class="val pull-right">{{app.activities.length}}</span></div>
+                        </div>
+                        <!-- End details-->
+
+                        <div class="activity-by-type clearfix">
+                            <div class="type pull-left" data-ng-style="{'width':100/app.activities.length+'%'}" data-ng-repeat="activity in app.activities">{{activity.env_name}}
+
+                                <span class="val">
+                                    <span data-popover-is-open="activity.isActivityOpen" data-ng-click="ActivityPopover.open(activity)" data-uib-popover-template="'templates/popup/SchedulePopup.html'" data-popover-placement="right" data-uib-popover >{{activity.activity_count}}</span>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- End activity-by-type-->
+                    </div>
+                    <!-- End content-->
+
+                    <div class="footer">
+                        Next Activity: <span class="activity">{{app.nextActivityName}}</span>
+                        <span class="pull-right"><span class="time">{{relativeTime(app.nextActivityTime)}}</span> </span>
+                    </div>
+                    <!-- End footer-->
+                </div>
+            </div>
+
+            <div data-ng-if="isShowModule(server.name)" class="col {{isShowModule('ACTIVITIES MODULE')?'col-md-6':'col-md-4'}}" data-ng-repeat="server in servers">
+                <div class="box" data-ng-class="{'show-action':server.showAction}">
+                    <div class="header">
+                        <h4 class="{{server.status}}">
+                            <a href="javascript:" data-ui-sref="applicationDetails" data-uib-tooltip="{{server.server_name}}">{{server.server_name}}</a>
+
+                            <span class="actions pull-right">
+                                <a href="javascript:" class="pull-right action"data-ng-click="server.showAction=true;"></a>
+                                <a href="javascript:" class="pull-right schedule" data-ng-click="showAutomationPopup(server.server_name)"></a>
+                            </span>
+                        </h4>
+                        <div data-off-click="server.showAction=false;" data-off-click-filter="'.action'" class="action-popup animate-if" data-ng-if="server.showAction">
+                            <a href="javascript:" class="close" data-ng-click="server.showAction=false"></a>
+                            <a href="javascript:" class="action-item schedule">View Schedule</a>
+                            <a href="javascript:" class="action-item remove" data-ng-click="$parent.remove(servers,server)">Remove Module</a>
+                        </div>
+                    </div>
+                    <!-- End header-->
+                    <div class="content">
+                        <div class="environment-holer">
+                            <a href="javascript:" class="pull-left app-name">{{server.app_name}}</a>
+                            <span class="arrow pull-left"> &gt;</span>
+                            <a href="javascript:" class="pull-left app-type">{{server.app_env}}</a>
+                        </div>
+                        <!-- End comment-holder-->
+
+                        <div class="details">
+                            <div>Activities Scheduled<span class="val pull-right">{{server.activities.length}}</span></div>
+                        </div>
+                        <!-- End details-->
+
+                        <div data-ng-scrollbars="" class="activity-time clearfix">
+                            <div class="activity-holder">
+                                <div class="activity clearfix" data-ng-repeat="activity in server.activities">
+                                    <span class="pull-left {{activity.class}}">{{relativeTime(activity.activity_time)}}</span>
+                                    <div class="pull-left"> {{activity.activity_name}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End activity-by-type-->
+                    </div>
+                    <!-- End content-->
+
+                    <div class="footer">
+                        Next Activity: <span class="activity">{{server.nextActivityName}}</span>
+                        <span class="pull-right">in <span class="time">{{relativeTime(server.nextActivityTime)}}</span> </span>
+                    </div>
+                    <!-- End footer-->
+                </div>
+            </div>
+        </div>
+        <!-- End row-->
+    </div>
+    <!-- End column-content-->
+
+    <div data-ng-if="isShowModule('ACTIVITIES MODULE')" class="right-sidebar pull-left">
+        <div class="box">
+            <div class="header">
+                <h4 class="activities">ACTIVITIES
+
+                            <span class="actions pull-right">
+                                <a href="javascript:" class="pull-right action"></a>
+                                <a href="javascript:" id="sidebar-filter" data-ng-click="showSidebarFilter = !showSidebarFilter" class="pull-right filter"></a>
+                            </span>
+                </h4>
+                <!-- End activities-->
+                <div data-ng-include="'templates/popup/FilterPopup.html'" data-off-click="showSidebarFilter = false" data-off-click-filter="'#sidebar-filter'" data-off-click-if="showSidebarFilter" class="popup filter-popup animate-if" data-ng-if="showSidebarFilter"></div>
+                <!-- End filter-popup-->
+            </div>
+            <!-- End header-->
+            <input type="text" class="search-input" data-ng-model="activitySearch">
+            <!-- End search-input-->
+            <!-- End activities-->
+
+            <div class="content">
+                <div data-ng-scrollbars="" class="activities">
+                    <div class="activity {{$index%2===1?'alt':''}}" data-ng-repeat="activity in activities | filter : activitySearch">
+                        <a href="#" class="title" data-ng-bind-html="activity.app_name"></a>
+                        <a href="#" class="title">> {{activity.env_name}}</a>
+                        <a href="#" class="title">> {{activity.inst_name}}</a>
+                        <span class="title" data-ng-bind-html="activity.activity_name"></span>
+                        <span class="title">({{activity.status}})</span>
+                        <div class="time">{{relativeTime(activity.activity_time)}}</div>
+                    </div>
+                </div>
+            </div>
+            <!-- End content-->
+        </div>
+    </div>
+    <!-- End right-sidebar-->
+</div>
+<!--page-content-->
+
+<aside class="dashboard-module {{isModule?'show':''}}" >
+    <a href="javascript:" class="close" data-ng-click="isModule = !isModule"></a>
+    <div class="title">Dashboard Modules</div>
+    <input type="text" class="search-input" data-ng-model="moduleSearch">
+    <!-- End search-->
+    <div data-ng-scrollbars class="modules">
+        <ul>
+            <li data-ng-repeat="module in dashboardModules | filter : moduleSearch">
+                <div class="module {{module.checked?'checked':''}}">
+                    <a href="javascript:" class="expand-toggle pull-left {{module.expand ? 'expand':''}}" data-ng-if="module.subModule" data-ng-click="module.expand = !module.expand"></a>
+                    {{module.name}}
+                    <a href="javascript:" class="toggle-box pull-right {{module.checked?'checked':''}}" data-ng-click="toggleModule(module)"></a>
+                </div>
+                <ul data-ng-if="module.expand">
+                    <li data-ng-repeat="moduleSecondLevel in module.subModule">
+                        <div class="module {{moduleSecondLevel.checked?'checked':''}}">
+                            <a href="javascript:" class="expand-toggle pull-left {{moduleSecondLevel.expand ? 'expand':''}}" data-ng-if="moduleSecondLevel.subModule" data-ng-click="moduleSecondLevel.expand = !moduleSecondLevel.expand"></a>
+                            {{module.name}}
+                            <a href="javascript:" class="toggle-box pull-right {{moduleSecondLevel.checked?'checked':''}}" data-ng-click="toggleModule(moduleSecondLevel,module)"></a>
+                        </div>
+
+                        <ul data-ng-if="moduleSecondLevel.expand">
+                            <li data-ng-repeat="subModule in moduleSecondLevel.subModule | limitTo : module.limit">
+                                <div class="module {{subModule.checked?'checked':''}}">
+                                    <a href="javascript:" class="expand-toggle pull-left {{subModule.expand ? 'expand':''}}" data-ng-if="subModule.subModule" data-ng-click="subModule.expand = !subModule.expand"></a>
+                                    {{subModule.name}}
+                                    <a href="javascript:" class="toggle-box pull-right {{subModule.checked?'checked':''}}" data-ng-click="toggleModule(subModule,moduleSecondLevel,module)"></a>
+                                </div>
+                            </li>
+                            <li data-ng-if="module.subModule.length>module.limit">
+                                <div class="module">
+                                    <a href="javascript:" data-ng-click="module.limit=100" class="load-more">Load More</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <!-- End module-->
+</aside>
+<!--End dashboard module-->
+
+<div data-ng-scrollbars="" class="popup-holder" data-ng-click="hidePopup()"  data-ng-if="popup!==''" data-ng-include="'templates/popup/'+popup"></div>
+<!--End popup-->

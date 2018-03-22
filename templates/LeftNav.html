@@ -1,0 +1,17 @@
+<div data-ng-scrollbars class="content">
+    <nav>
+        <div data-ng-repeat="menuItem in leftMenu">
+            <a data-ng-if="menuItem.sref" href="javascript:" data-ui-sref="{{menuItem.sref}}"
+               class="{{menuItem.class}} {{$state.includes('applicationDetails')&& menuItem.class==='application'?'active':''}}"
+               data-ui-sref-active="active">{{menuItem.name}}</a>
+            <a data-ng-if="!menuItem.sref" href="javascript:" class="{{menuItem.class}}">{{menuItem.name}}</a>
+        </div>
+    </nav>
+</div>
+<!--End content-->
+
+<div class="user">
+    <img src="i/user.jpg" data-ng-src="{{user.img}}" alt="thumb">
+    <a href="javascript:" class="name">{{user.name}}</a>
+</div>
+<!--End footer-->

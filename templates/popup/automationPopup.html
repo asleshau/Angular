@@ -1,0 +1,270 @@
+<div class="automation-schedule popup" id="automation-schedule" data-ng-style="$parent.getPopupTop()"
+     data-ng-click="$event.stopPropagation();">
+    <div class="header">Automation Schedule Control: <span>{{$parent.name}}</span></div>
+    <!-- End header-->
+
+    <div class="content">
+        <div class="calendar">
+            <div data-uib-datepicker data-ng-model="$parent.calendar.dt" data-show-weeks="false" class="well well-sm"
+                 data-custom-class="$parent.getDayClass(date, mode)"></div>
+        </div>
+        <!-- End calendar-->
+
+        <div class="schedule">
+            <div class="header">
+                <input type="search" class="pull-left" data-ng-model="typeSearch">
+                <a href="javascript:" id="automation-filter"
+                   data-ng-click="automationData.filter=!automationData.filter"
+                   class="filter pull-right"></a>
+
+                <div data-ng-include="'templates/popup/FilterPopupAutomation.html'"
+                     data-off-click="automationData.filter = false" data-off-click-filter="'#automation-filter'"
+                     data-off-click-if="automationData.filter" class="popup filter-popup automation-filter animate-if"
+                     data-ng-if="automationData.filter"></div>
+                <!-- End filter-popup-->
+            </div>
+            <!-- End header-->
+
+
+
+            <div data-ng-scrollbars="" class="schedule-holder">
+                <div class="holder" data-ng-if="automationScheduleSelectDate[0].ACT_TIME">
+                    <div class="time-hold">
+                        <div class="date {{$parent.getScheduleDayClass(automationScheduleSelectDate[0])}}">
+                            {{$parent.getDate(automationScheduleSelectDate[0].ACT_TIME) | date : 'MM/dd/yy'}}
+                        </div>
+                    </div>
+                    <!-- End time-hold-->
+                    <div class="time-hold clearfix" data-ng-repeat="time in automationScheduleSelectDate | filter :typeSearch"
+                         data-ng-class="{'show-info':time.showInfo}" data-ng-click="$parent.showScheduleInfo(time)">
+                        <div class="time pull-left {{$parent.getScheduleTimeClass(time.ACT_TIME)}}">
+                            {{$parent.getDate(time.ACT_TIME) | date : 'HH:mm a'}}
+                        </div>
+                        <div class="info"><a href='javascript:'>{{time.env_name }} > {{ time.action_name}}</a></div>
+                    </div>
+                    <!-- End time-hold-->
+                </div>
+            </div>
+            <!-- End schedule-holder-->
+
+        </div>
+        <!-- End schedule-->
+    </div>
+    <!-- End content-->
+
+    <div class="schedule-info" data-ng-if="$parent.selectedTime.showInfo">
+        <div class="input-row clearfix">
+            <label class="pull-left">Item Selection</label>
+
+            <div class="input-holder"><a class="name" href="javascript:">{{selectedTime.app_ci}}</a></div>
+        </div>
+        <!-- End row-->
+        <div class="input-row clearfix">
+            <label class="pull-left">Action Item</label>
+
+            <div class="input-holder"><span class="value-holder action-item ">{{selectedTime.action_name}}</span></div>
+        </div>
+        <!-- End row-->
+        <div class="input-row clearfix">
+            <label class="pull-left">Schedule Start</label>
+
+            <div class="input-holder">
+                <span class="value-holder schedule-start pull-left">
+                    <span class="date">{{$parent.getDate(selectedTime.ACT_TIME) | date : 'MM/dd/yy'}}</span>
+                    <span class="time pull-right">{{$parent.getDate(selectedTime.ACT_TIME) | date : 'HH:mm a'}}</span>
+                </span>
+               <!-- <span class="end pull-left">
+                    End
+                </span>
+                <span class="value-holder schedule-start pull-left">
+                    <span class="date">{{$parent.getDate(automationScheduleSelectDate.date) | date : 'MM/dd/yy'}}</span>
+                    <span class="time pull-right">{{$parent.getDate(selectedTime.time) | date : 'HH:mm a'}}</span>
+                </span>-->
+            </div>
+        </div>
+        <!-- End row-->
+        <div class="input-row clearfix">
+            <label class="pull-left">Recurring Activity</label>
+
+            <div class="input-holder">
+                <span class="value-holder recurring pull-left">{{$parent.selectedTime.recur_id===true?'Yes':'No'}}</span>
+                <!--<span class="sequence-label pull-left">Sequence</span>
+                <span class="value-holder sequence pull-left">{{scheduledData.sequence}}</span>
+                <span class="time-label pull-left">Time</span>
+                <span class="value-holder time-schedule pull-left">
+
+                    <span class="date">{{scheduledData.time}}</span>
+                    <span class="time pull-right">{{$parent.getDate(selectedTime.time) | date : 'HH:mm a'}}</span>
+                </span>-->
+            </div>
+        </div>
+        <!-- End row-->
+    </div>
+    <!-- End schedule-info-->
+
+    <div class="schedule-info" data-ng-if="$parent.isAddNewSchedule">
+        <div class="input-row clearfix">
+            <label class="pull-left">Item Selection</label>
+
+            <div class="input-holder"><a class="name" href="javascript:">{{newScheduled.name}}</a></div>
+        </div>
+        <!-- End row-->
+        <div class="input-row clearfix">
+            <label class="pull-left">Action Item</label>
+            <div class="input-holder"><span class="value-holder action-item ">{{scheduledData.actionItem}}</span></div>
+           <!-- <div class="input-holder">
+                <div data-uib-dropdown class="action-item custom-dropdown" data-is-open="actionItem.isOpen"
+                     data-off-click="actionItem.isOpen = false"
+                     data-off-click-if="actionItem.isOpen">
+                    <button data-uib-dropdown-toggle>
+                        {{newScheduled.actionItem}}
+                    </button>
+                    <ul data-uib-dropdown-menu>
+                        <li data-ng-repeat="choice in newScheduled.actionItems">
+                            <a href="javascript:" data-ng-class="{'active':newScheduled.actionItem === choice}"
+                               data-ng-click="newScheduled.actionItem = choice;actionItem.isOpen=false;">{{choice}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>-->
+        </div>
+        <!-- End row-->
+        <div class="input-row clearfix" data-ng-if="newScheduled.actionItem==='Disk Size'">
+            <label class="pull-left">Current Size</label>
+
+            <div class="input-holder">
+                <span class="value-holder small pull-left"><input type="text" value="123"></span>
+                <span class="sub-label pull-left">Free Space</span>
+                <span class="value-holder small pull-left"><input type="text" value="123"></span>
+                <span class="sub-label last pull-left">New Size</span>
+                <span class="value-holder small pull-left"><input type="text" value="123"></span>
+            </div>
+        </div>
+        <!-- End row-->
+        <div class="input-row clearfix">
+            <label class="pull-left">Schedule Start</label>
+
+            <div class="input-holder">
+                <div id="start-date" class="pull-left">
+                <input readonly placeholder="mm/dd/yyyy" data-show-weeks="false" data-show-button-bar="false"
+                       type="text" class="pull-left date-picker start-date" data-uib-datepicker-popup="MM/dd/yy"
+                       data-ng-click="start.opened=!start.opened;" data-ng-model="newScheduled.stdt"
+                       data-is-open="start.opened" data-ng-required="true"
+                        data-off-click="start.opened = false" data-off-click-filter="'#start-date'"/>
+                </div>
+                <!--<span class="time pull-right">{{$parent.getDate(selectedTime.time) | date : 'HH:mm a'}}</span>-->
+                <div class="time-picker pull-left" data-show-spinners="false" data-uib-timepicker
+                     data-ng-model="newScheduled.sttm" data-ng-change="changed()" data-hour-step="1"
+                     data-minute-step="1" data-show-meridian="true">{{$parent.getDate(newScheduled.time) | date : 'HH:mm a'}}</div>
+
+               <!-- <span class="end pull-left">
+                    End
+                </span>
+                <div id="end-date" class="pull-left">
+                <input readonly placeholder="mm/dd/yyyy" data-show-weeks="false" data-show-button-bar="false"
+                       type="text" class="pull-left date-picker start-date" data-uib-datepicker-popup="MM/dd/yy"
+                       data-ng-click="end.opened=!end.opened;" data-ng-model="newScheduled.endt"
+                       data-is-open="end.opened" data-ng-required="true"
+                       data-off-click="end.opened = false" data-off-click-filter="'#end-date'"/>
+                    </div>
+
+                <div class="time-picker pull-left" data-show-spinners="false" data-uib-timepicker
+                     data-ng-model="newScheduled.entm" data-ng-change="changed()" data-hour-step="1"
+                     data-minute-step="1" data-show-meridian="true"></div>-->
+            </div>
+        </div>
+        <!-- End row-->
+        <div class="input-row clearfix">
+            <label class="pull-left">Recurring Activity</label>
+
+            <div class="input-holder">
+                <span class="value-holder toggle recurring pull-left">
+                    <span class="toggle-box pull-left" data-ng-class="{'checked':newScheduled.recurring}"
+                          data-ng-click="newScheduled.recurring= !newScheduled.recurring"></span>
+                </span>
+
+                <div class="pull-left" data-ng-if="newScheduled.recurring">
+                    <span class="sequence-label pull-left">Sequence</span>
+
+                    <div data-uib-dropdown class="mini-dropdown pull-left custom-dropdown"
+                         data-is-open="sequence.isOpen"
+                         data-off-click="sequence.isOpen = false"
+                         data-off-click-if="sequence.isOpen">
+                        <button data-uib-dropdown-toggle>
+                            {{newScheduled.sequence}}
+                        </button>
+                        <ul data-uib-dropdown-menu>
+                            <li data-ng-repeat="choice in newScheduled.sequenceList">
+                                <a href="javascript:" data-ng-class="{'active':newScheduled.sequence === choice}"
+                                   data-ng-click="newScheduled.sequence = choice;sequence.isOpen=false;">{{choice}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <span class="time-label mini pull-left">Time</span>
+
+                    <div data-off-click="time.isOpen=false;" data-uib-dropdown class="mini-dropdown multi-select pull-left custom-dropdown"
+                         data-is-open="time.isOpen">
+                        <button data-uib-dropdown-toggle>
+                            {{newScheduled.time.join(", ")}}
+                        </button>
+                        <ul data-uib-dropdown-menu>
+                            <li data-ng-repeat="choice in newScheduled.timeList">
+                                <a href="javascript:" data-ng-class="{'active': choice.select}"
+                                   data-ng-click="$parent.setTimes(choice);">{{choice.val}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="time-picker pull-left" data-show-spinners="false" data-uib-timepicker
+                         data-ng-model="newScheduled.sqtm" data-ng-change="changed()" data-hour-step="1"
+                         data-minute-step="1" data-show-meridian="true"></div>
+                </div>
+            </div>
+        </div>
+        <!-- End row-->
+        <div class="input-row clearfix" data-ng-if="$parent.newScheduled.sequence==='Custom'">
+            <div class="input-holder">
+                <span class="value-holder toggle recurring pull-left">
+
+                </span>
+
+                <div class="pull-left">
+                    <span class="sequence-label pull-left">Repeat</span>
+
+                    <div data-uib-dropdown class="mini-dropdown pull-left custom-dropdown" data-is-open="repeat.isOpen"
+                         data-off-click="repeat.isOpen = false"
+                         data-off-click-if="repeat.isOpen">
+                        <button data-uib-dropdown-toggle>
+                            {{newScheduled.repeat}}
+                        </button>
+                        <ul data-uib-dropdown-menu>
+                            <li data-ng-repeat="choice in newScheduled.repeatList">
+                                <a href="javascript:" data-ng-class="{'active':newScheduled.repeat === choice}"
+                                   data-ng-click="newScheduled.repeat = choice;repeat.isOpen=false;">{{choice}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End row-->
+    </div>
+    <!-- End schedule-info-->
+
+    <footer class="footer">
+        <a href="javascript:" data-ng-click="automationData.sendNotification = !automationData.sendNotification"
+           class="send-notification pull-left" data-ng-class="{'select': sendNotifications}">Send
+            Notification</a>
+
+        <a href="javascript:" data-ng-if="isAddNewSchedule" data-ng-click="$parent.saveSchedule()" class="btn btn-success pull-right">Save</a>
+        <a href="javascript:" data-ng-if="!isAddNewSchedule" data-ng-click="$parent.addNewSchedule()"
+           class="btn btn-success pull-right">Add New</a>
+        <a href="javascript:" data-ng-if="selectedTime.showInfo" data-ng-click="$parent.editSchedule()"
+           class="btn btn-warning pull-right">Edit-Data</a>
+        <a href="javascript:" data-ng-if="selectedTime.showInfo" data-ng-click="$parent.deleteSchedule()"
+           class="btn btn-danger pull-right">Delete</a>
+        <a href="javascript:" data-ng-click="hidePopup()" class="btn btn-ash pull-right">Cancel</a>
+    </footer>
+    <!-- End footer-->
+</div>
+
+<div class="empty-space"></div>

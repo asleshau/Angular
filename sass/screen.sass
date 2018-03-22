@@ -1,0 +1,2720 @@
+@import "fonts"
+@import "animation"
+
+@mixin image-2x($image)
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 144dpi)
+    &
+      background-image: url($image)
+
+
+html
+  position: relative
+  height: 100%
+
+body.login
+  padding: 0
+  min-height: 650px
+  background-color: #3b73b9
+body
+  font-family: 'GEInspira', Helvetica, sans-serif
+  left: 0
+  top: 0
+  right: 0
+  bottom: 0
+  position: absolute
+  margin: 0
+  font-weight: 300
+  color: #ffffff
+  background-color: #ebeff3
+  padding: 60px 0 0 102px
+
+*
+  -webkit-overflow-scrolling: touch
+
+
+h1, h2, h3, h4, h5, h6,label
+  margin: 0
+
+/*input,select style overide*/
+input,
+textarea
+  outline: none
+  border-radius: 0
+  font-family: 'GEInspira', Helvetica, sans-serif
+  -webkit-appearance: none
+  box-shadow: none
+select
+  box-shadow: none
+
+/*btn styles*/
+.btn
+  height: 38px
+  border-radius: 3px
+  line-height: 38px
+  padding: 0
+  border: none
+  font-size: 16px
+  font-weight: 500
+  color: #ffffff
+
+.btn.focus, .btn:focus, .btn:hover
+  color: #ffffff
+  opacity: .9
+
+.btn.btn-success
+  background: #8dc63f
+.btn.btn-ash
+  background: #a7b2bb
+.btn.btn-danger
+  background: #ee3124
+.btn.btn-warning
+  background: #f8971d
+.btn.btn-success:hover
+  background: #7cad37
+  opacity: 1
+.btn.ash:hover
+  background: #8d98a1
+  opacity: 1
+.btn.btn-danger:hover
+  background: #c62f24
+  opacity: 1
+.btn.btn-warning:hover
+  background: #d77a1d
+  opacity: 1
+
+a,
+a:focus,
+a:active,
+a:hover
+  outline: none
+  text-decoration: none
+
+.toggle-box
+  display: inline-block
+  width: 28px
+  height: 16px
+  border: 1px solid #aeb8b8
+  border-radius: 14px
+  background: #ffffff
+  position: relative
+  cursor: pointer
+.toggle-box:after
+  position: absolute
+  content: ''
+  width: 10px
+  height: 10px
+  border-radius: 50%
+  background: #617380
+  top: 2px
+  left: 2px
+  transition: all .2s
+.toggle-box.checked:after
+  background: #3b73b9
+  left: 14px
+
+/*custom-dropdown*/
+.custom-dropdown.open
+  > a
+    color: #36a9e5
+  button:after
+    border-top: 6px solid #16a4de
+.custom-dropdown
+  display: block
+  position: relative
+
+  > a
+    display: inline-block
+    line-height: 32px
+    padding-right: 34px
+    font-size: 16px
+    color: #ffffff
+    position: relative
+    text-decoration: none
+
+  > a:after
+    position: absolute
+    top: 14px
+    right: 17px
+    content: ''
+    border-top: 7px solid #36a9e5
+    border-left: 5px solid transparent
+    border-right: 6px solid transparent
+
+
+  button
+    position: relative
+    display: block
+    width: 100%
+    height: 40px
+    border: 1px solid #e2e7ed
+    padding: 10px 30px 10px 12px
+    line-height: 20px
+    font-size: 14px
+    background: #fafafa
+    color: #6d7777
+    text-align: left
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+    border-radius: 2px
+  button:after
+    position: absolute
+    content: ''
+    border: none
+    border-top: 6px solid #959f9f
+    border-left: 5px solid transparent
+    border-right: 5px solid transparent
+    top: 50%
+    right: 13px
+    margin-top: -3px
+  button:hover:after
+    border-top: 6px solid #16a4de
+
+  ul
+    width: 100%
+    min-width: 100px
+    padding: 0
+    border: 1px solid #f1f3f4
+    background: #ffffff
+    border-top: none
+    margin: 0
+    border-radius: 2px
+
+    li
+      border-top: 1px solid #f1f3f4
+
+      a
+        display: block
+        line-height: 20px
+        height: 40px
+        font-size: 13px
+        color: #959f9f
+        font-weight: 500
+        padding: 10px 12px
+        margin: 0
+      a:hover,
+      a:active,
+      a:focus,
+      a.active
+        background: #16a4de
+        color: #ffffff
+
+.custom-dropdown.multi-select
+  ul
+    li
+      a.active
+        color: #16a4de
+        background: url("../i/icons.png") no-repeat 100% -1410px
+        background-size: 100px
+        @include image-2x("../i/icons-2x.png")
+
+/*tooltip*/
+.tooltip.bottom
+  margin: -6px 0 0 -4px
+  padding: 8px
+  .tooltip-inner
+    display: block
+    padding: 12px
+    line-height: 17px
+    color: #ffffff
+    border: 1px solid #2a2e34
+    border-radius: 4px
+    background: #1c2025
+
+  .tooltip-arrow
+    border-width: 0 8px 8px
+    border-bottom-color: #1c2025
+    z-index: 10
+    top: 1px
+
+
+.login-page
+  display: block
+  position: absolute
+  overflow: auto
+  height: 100%
+  width: 100%
+  background: #3b73b9
+  z-index: 10
+
+  .content
+    display: block
+    width: 360px
+    left: 50%
+    margin-left: -180px
+    min-height: 650px
+    top: 50%
+    margin-top: -325px
+    position: absolute
+    padding-top: 60px
+
+    .logo
+      display: block
+      padding-top: 170px
+      text-align: center
+      font-size: 30px
+      font-weight: 400
+      background: url("../i/logo.png") no-repeat 50% 0
+      background-size: 150px
+      line-height: 44px
+      span
+        font-weight: 500
+
+    .login-form
+      padding-top: 85px
+
+      .remember-holder
+        display: block
+        height: 56px
+        padding: 18px 0
+        font-size: 16px
+
+        .remember
+          line-height: 22px
+          padding-left: 30px
+          color: rgba(255,254,254,.5)
+          float: left
+          position: relative
+        .remember:before
+          position: absolute
+          left: 0
+          top: 0
+          content: ''
+          width: 20px
+          height: 20px
+          border-radius: 2px
+          background: #769dce
+
+        .remember.checked:before
+          background: #769dce url("../i/icons.png") 0 -1365px no-repeat
+          background-size: 100px
+          @include image-2x("../i/icons-2x.png")
+
+        .forgot-pw
+          float: right
+          line-height: 20px
+          color: #f8971d
+        .forgot-pw:hover
+          opacity: .8
+
+      .btn
+        display: block
+        line-height: 40px
+        height: 40px
+        border-radius: 2px
+        margin-top: 15px
+        font-size: 16px
+        font-weight: 500
+        text-transform: uppercase
+
+      input
+        display: block
+        width: 100%
+        border: none
+        border-bottom: 1px solid #769dce
+        background: transparent
+        margin-top: 10px
+        padding: 13px 30px
+        background: url("../i/icons.png") no-repeat 0 -2px
+        background-size: 100px
+        @include image-2x("../i/icons-2x.png")
+        font-size: 18px
+        color: #ffffff
+        line-height: 24px
+        height: 50px
+
+      input[type=password]
+        background-position: 0 -52px
+      input::-webkit-input-placeholder
+        color: #ffffff
+        opacity: .8
+      input:-ms-input-placeholder
+        color: #ffffff
+        opacity: .8
+      input::-moz-placeholder
+        color: #ffffff
+        opacity: .8
+
+
+
+/*header styles*/
+.pages header.header
+  display: block
+header.header
+  position: absolute
+  left: 0
+  top: 0
+  right: 0
+  height: 60px
+  background: #3b73b9
+  display: none
+
+  .app-logo
+    margin-left: 22px
+    height: 60px
+    font-size: 18px
+    color: #ffffff
+    line-height: 60px
+    padding-left: 50px
+    background: url("../i/logo-small.png") no-repeat 0 50%
+    background-size: 40px
+
+    span
+      font-weight: 500
+
+    .menu-icon
+      height: 69px
+      background: url("../i/icons.png") no-repeat 0 0
+      background-size: 100px
+      @include image-2x("../i/icons-2x.png")
+      width: 67px
+    .menu-icon:hover
+      background-position: 0 -69px
+
+  .search
+    width: 40px
+    margin-right: 15px
+    height: 60px
+    background: url("../i/icons.png") no-repeat 50% -100px
+    background-size: 100px
+    @include image-2x("../i/icons-2x.png")
+  .search:hover
+    opacity: .8
+
+
+/*left-sidebar*/
+.pages .left-nav
+  display: block
+.left-nav
+  display: none
+  position: absolute
+  left: 0
+  width: 102px
+  overflow: hidden
+  padding-bottom: 100px
+  bottom: 0
+  top: 60px
+  background: #1d3649
+
+  .content
+    position: relative
+    height: 100%
+    overflow: auto
+  nav
+    display: block
+    padding: 20px 0 0
+
+
+    a
+      display: block
+      height: 75px
+      border-left: 3px solid transparent
+      font-size: 12px
+      color: #ffffff
+      text-decoration: none
+      line-height: 16px
+      font-weight: 500
+      background-image: url("../i/icons.png")
+      background-repeat: no-repeat
+      background-size: 100px
+      @include image-2x("../i/icons-2x.png")
+      padding-top: 48px
+      text-align: center
+      opacity: .4
+      margin-bottom: 4px
+      text-transform: uppercase
+    a:hover
+      opacity: .7
+    a.active
+      border-left: 3px solid #3b73b9
+      background-color: #192f40
+      cursor: default
+      opacity: 1
+    a.dashboard
+      background-position: 0 -160px
+    a.activity
+      background-position: 0 -235px
+    a.application
+      background-position: 0 -310px
+    a.server
+      background-position: 0 -385px
+    a.profile
+      background-position: 0 -460px
+    a.settings
+      background-position: 0 -535px
+
+  .user
+    display: block
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+    height: 100px
+    background: #192f40
+    padding-top: 20px
+    text-align: center
+    line-height: 18px
+
+    img
+      margin: 0 auto 8px
+      width: 40px
+      height: 40px
+      border-radius: 50%
+      display: block
+    a
+      font-size: 12px
+      color: #ffffff
+
+
+
+/*view-frame*/
+.view-frame
+  position: relative
+  min-height: 100%
+  overflow: hidden
+
+  .page-top
+    display: block
+
+    .breadcrumb
+      display: block
+      height: 34px
+      background: #2d5a92
+      line-height: 34px
+      padding: 0 25px
+      border: none
+      border-radius: 0
+      margin: 0
+
+      a
+        display: block
+        font-size: 13px
+        font-weight: 500
+        color: #ffffff
+
+      .arrow
+        font-size: 20px
+        width: 34px
+        background: url("../i/icons.png") no-repeat 14px -1330px
+        background-size: 100px
+        @include image-2x("../i/icons-2x.png")
+        display: block
+        height: 34px
+
+      .current
+        font-size: 13px
+        font-weight: 500
+        color: rgba(255,255,255,.5)
+
+    .page-title
+      display: block
+      height: 70px
+      padding: 0 27px 0 25px
+
+      .title
+        display: block
+        line-height: 70px
+        font-size: 30px
+        color: #3c4646
+        font-weight: 600
+
+      .app-details
+        display: block
+        margin-top: 25px
+
+        .info
+          display: block
+          font-size: 14px
+          color: #959f9f
+          margin-right: 28px
+
+          span
+            font-size: 18px
+            font-weight: 500
+            color: #323c3c
+
+      .server-status
+        display: block
+        padding-top: 10px
+
+        .server
+          margin-left: 13px
+          width: 75px
+          height: 50px
+          border-radius: 2px
+          background: #ffffff
+          border-top: 3px solid
+          line-height: 18px
+          text-align: center
+          padding-top: 3px
+          float: left
+
+          .type
+            display: block
+            font-size: 13px
+            color: #959f9f
+          .count
+            display: block
+            font-size: 18px
+            font-weight: 500
+
+        .server.running
+          border-top-color: #8dc63f
+          .count
+            color: #8dc63f
+
+        .server.standby
+          border-top-color: #f8971d
+          .count
+            color: #f8971d
+
+        .server.shutdown
+          border-top-color: #ee3124
+          .count
+            color: #ee3124
+
+
+    .server-time
+      display: block
+      height: 35px
+      background: #f1f4f7
+      font-size: 0
+      padding: 8px 0 7px
+
+      .time-hold:last-child
+        border-right: none
+      .time-hold
+        display: inline-block
+        font-size: 13px
+        padding: 0 19px
+        line-height: 20px
+        border-right: 1px solid #d8dbde
+        color: #666666
+
+        span
+          font-size: 14px
+          font-weight: 500
+
+        span.up
+          color: #f8971d
+        span.down
+          color: #ee3124
+        span.over
+          color: #8dc63f
+
+        .hour
+          color: #999999
+          font-size: 13px
+
+    .action-bar
+      height: 50px
+      background: #e2e7ed
+      padding: 13px 27px 13px 25px
+      position: relative
+
+      .action-holder
+        position: relative
+
+      a.filter.min
+        width: 140px
+      a.filter
+        display: block
+        width: 160px
+        padding: 0 10px
+        line-height: 24px
+        background: #ffffff
+        text-align: center
+        font-size: 12px
+        color: #16a4de
+        border-radius: 12px
+        white-space: nowrap
+        overflow: hidden
+        margin-right: 16px
+        text-overflow: ellipsis
+
+        i
+          display: inline-block
+          width: 10px
+          height: 10px
+          border-radius: 5px
+          margin-left: 3px
+          position: relative
+          top: 2px
+        i.up
+          background: #8dc63f
+        i.over
+          background: #f8971d
+        i.down
+          background: #ee3124
+
+      a.filter:hover,
+      a.filter.active
+        background: #16a4de
+        color: #ffffff
+
+      a.module-trigger
+        width: 20px
+        height: 20px
+        margin: 2px 0 0
+        background: url("../i/icons.png") no-repeat 50% -610px
+        background-size: 100px
+        @include image-2x("../i/icons-2x.png")
+        opacity: .4
+      a.module-trigger:hover
+        opacity: 1
+
+      a.list-view
+        height: 21px
+        width: 22px
+        margin: 1px 0 0 15px
+        background: url("../i/icons.png") no-repeat 0 -1105px
+        background-size: 100px
+        @include image-2x("../i/icons-2x.png")
+        opacity: .4
+
+      a.list-view:hover,
+      a.list-view.active
+        opacity: 1
+
+      a.grid-view
+        height: 20px
+        width: 20px
+        margin: 2px 0 0
+        background: url("../i/icons.png") no-repeat 0 -1085px
+        background-size: 100px
+        @include image-2x("../i/icons-2x.png")
+        opacity: .4
+
+      a.grid-view:hover,
+      a.grid-view.active
+        opacity: 1
+
+/*page-content*/
+.page-content.with-breadcrumb
+  top: 189px
+.page-content
+  position: absolute
+  top: 155px
+  overflow: auto
+  left: 0
+  right: 0
+  bottom: 0
+
+  .column-content.with-sidebar
+    width: 66%
+  .column-content
+    width: 100%
+    padding: 20px 27px 20px 25px
+
+  .right-sidebar
+    width: 34%
+    padding: 20px 27px 20px 8px
+
+  .row
+    margin: 0 -7px
+    .col
+      padding: 0 7px 0 8px
+
+  .box.show-action:after
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+    top: 0
+    background: rgba(29,54,73,.6)
+    content: ''
+    z-index: 10
+  .box
+    display: block
+    border-radius: 3px
+    box-shadow: 0 0 3px rgba(0,0,0,.05)
+    min-height: 100px
+    background: #ffffff
+    margin-bottom: 15px
+    position: relative
+
+    .header
+      height: 42px
+      border-bottom: 1px solid #dadfe6
+      position: relative
+      border-radius: 3px 3px 0 0
+
+      h4
+        padding-left: 34px
+        padding-right: 60px
+        color: #16a4de
+        font-size: 14px
+        font-weight: 500
+        position: relative
+        line-height: 42px
+        a
+          color: inherit
+          text-transform: uppercase
+          display: inline-block
+          overflow: hidden
+          white-space: nowrap
+          text-overflow: ellipsis
+          max-width: 100%
+
+        .tooltip
+          max-width: 1000px
+          top: -33px !important
+          left: 29px !important
+          margin-top: 7px
+
+          .tooltip-arrow
+            left: 20px
+
+          .tooltip-inner
+            max-width: 100%
+            line-height: 25px
+            text-transform: uppercase
+            background: #333333
+            white-space: nowrap
+
+      h4:before
+        position: absolute
+        content: ''
+        width: 10px
+        height: 10px
+        border-radius: 50%
+        top: 16px
+        left: 15px
+      h4.up:before
+        background: #8dc63f
+      h4.over:before
+        background: #f8971d
+      h4.down:before
+        background: #e0301e
+      h4.activities
+        background: url("../i/icons.png") no-repeat 0 -690px
+        background-size: 100px
+        @include image-2x("../i/icons-2x.png")
+        color: #3c4646
+
+      .action-popup
+        display: block
+        position: absolute
+        top: 0
+        right: 0
+        left: 0
+        background: #ffffff
+        box-shadow: 0 0 8px rgba(0,0,0,.4)
+        border-radius: 3px
+        z-index: 11
+
+        .action-item
+          display: block
+          line-height: 57px
+          padding-left: 55px
+          font-size: 13px
+          text-align: left
+          color: #6d7777
+          background: url("../i/icons.png") no-repeat
+          background-size: 100px
+          @include image-2x("../i/icons-2x.png")
+        .action-item.automation
+          background-position: 20px -1180px
+          border-bottom: 1px solid #eceff2
+        .action-item.schedule
+          background-position: 20px -1240px
+        .action-item.remove
+          background-position: 0 -1516px
+          border-top: 1px solid #eceff2
+
+        .close
+          position: absolute
+          width: 12px
+          height: 12px
+          background: url("../i/icons.png") no-repeat 0 -1126px
+          background-size: 100px
+          @include image-2x("../i/icons-2x.png")
+          top: 14px
+          right: 14px
+          opacity: .5
+
+        .close:hover
+          opacity: 1
+
+
+
+
+      .actions
+        display: block
+        padding-right: 7px
+        position: absolute
+        top: 0
+        right: 0
+
+        a
+          display: block
+          background: url("../i/icons.png") no-repeat
+          background-size: 100px
+          @include image-2x("../i/icons-2x.png")
+          height: 20px
+          margin-top: 11px
+          margin-left: 3px
+          opacity: .3
+
+        a:hover
+          opacity: 1
+
+        a.schedule
+          background-position: 50% -630px
+          width: 24px
+        a.action
+          background-position: 50% -650px
+          width: 20px
+        a.filter
+          background-position: 50% -670px
+          width: 24px
+        a.refresh
+          background-position: 50% -1300px
+          width: 24px
+        margin-right: 5px
+
+
+    .content.with-bottom-margin
+      margin-bottom: 200px
+    .content
+      display: block
+      min-height: 100px
+
+      .environment-table
+        width: 100%
+
+      .environment-holer.small-text
+        font-size: 13px
+      .environment-holer
+        display: block
+        height: 40px
+        background: #f7fbff
+        line-height: 20px
+        padding: 10px 14px
+        color: #959f9f
+        font-size: 16px
+
+        > div
+          position: relative
+
+        .val
+          font-weight: 500
+          color: #16a4de
+          font-size: 16px
+        .val.up
+          color: #8dc63f
+        .val.down
+          color: #ee3124
+        .val.margin-left
+          margin-left: 10px
+
+        a
+          font-size: 13px
+          font-weight: 500
+          color: #16a4de
+
+        .arrow
+          font-size: 13px
+          font-weight: 500
+          color: #6d7777
+          text-align: center
+          width: 18px
+
+        span
+          cursor: pointer
+          font-size: 13px
+
+        > div:hover
+          > span
+            color: #666666
+          .val
+            color: #16a4de
+
+      > .details
+        padding: 10px 14px 10px
+
+        > div
+          font-size: 13px
+          color: #666666
+          line-height: 30px
+
+          span
+            color: #999999
+
+          .val
+            font-size: 16px
+            font-weight: 500
+            color: #16a4de
+
+          .val.down
+            color: #ee3124
+      .activity-time
+        display: block
+        height: 107px
+        overflow: auto
+        padding: 17px 15px 0
+        position: relative
+        border-top: 1px solid #dadfe6
+
+        .activity-holder
+          position: relative
+        .activity-holder:before
+          position: absolute
+          left: 35px
+          top: 30px
+          bottom: 30px
+          border-left: 1px solid #d6dbdb
+          content: ''
+        .activity
+          margin-bottom: 15px
+          position: relative
+          z-index: 10
+
+          > div
+            color: #6d7777
+            font-size: 14px
+            line-height: 32px
+          span
+            display: inline-block
+            border-radius: 15px
+            border: 1px solid #d6dbdb
+            background: #ffffff
+            text-align: center
+            font-size: 13px
+            color: #6d7777
+            line-height: 28px
+            width: 71px
+            margin-right: 8px
+          span.green
+            color: #ffffff
+            border-color: #8dc63e
+            background: #8dc63f
+          span.blue
+            color: #ffffff
+            border-color: #16a4df
+            background: #16a4de
+
+      .activity-by-type
+        margin-top: 5px
+        display: block
+        border-top: 1px solid #dadfe6
+        border-bottom: 1px solid #dadfe6
+
+        .type:last-child
+          border-right: none
+        .type
+          display: block
+          height: 60px
+          border-right: 1px solid #dadfe6
+          text-align: center
+          padding-top: 13px
+          line-height: 18px
+          font-size: 13px
+          max-width: 50%
+          color: #666666
+
+          .val
+            display: block
+            font-weight: 500
+            color: #16a4de
+            font-size: 18px
+            > span
+              display: inline-block
+              width: 20px
+              cursor: pointer
+
+          .popover
+            margin-top: -32px
+            .arrow
+              top: 210px
+
+    .footer
+      display: block
+      height: 40px
+      padding: 10px 14px
+      line-height: 20px
+      background: #f7fbff
+      color: #999999
+      border-radius: 0 0 3px 3px
+
+      .activity
+        color: #8dc63f
+        font-weight: 500
+      .time
+        font-weight: 500
+        color: #323c3c
+
+    .search-input
+      display: block
+      height: 30px
+      border: none
+      padding: 5px 5px 5px 45px
+      line-height: 20px
+      font-size: 13px
+      width: 100%
+      color: #323c3c
+      background: #fafafa url("../i/icons.png") no-repeat 20px -735px
+      background-size: 100px
+      @include image-2x("../i/icons-2x.png")
+
+    .specific-activities
+      display: block
+      ul
+        display: block
+        margin: 0
+        padding: 0
+
+        li
+          background: #f5f5f5
+          border-top: 1px solid #ffffff
+
+          .activity
+            line-height: 38px
+            display: block
+            padding-left: 11px
+            font-size: 13px
+            padding-right: 75px
+            overflow: hidden
+            white-space: nowrap
+            text-overflow: ellipsis
+            color: #6d7777
+
+            a.toggle-expand
+              display: block
+              width: 16px
+              height: 16px
+              margin: 11px 9px
+              background: url("../i/icons.png") no-repeat 0 -781px
+              background-size: 100px
+              @include image-2x("../i/icons-2x.png")
+            a.toggle-expand.expand
+              background-position: 0 -765px
+
+            .name
+              color: #16a4de
+
+
+          li .activity
+            padding-left: 29px
+            position: relative
+
+            .toggle-box
+              position: absolute
+              top: 10px
+              right: 28px
+
+    .activities
+      display: block
+      max-height: 532px
+      overflow: auto
+      .activity.alt
+        background: #f7fafc
+      .activity
+        display: block
+        color: #6d7777
+        line-height: 18px
+        font-size: 13px
+        padding: 12px 20px
+        a
+          color: #16a4de
+        .arrow
+          font-weight: 500
+          color: #6d7777
+          text-align: center
+          width: 18px
+          display: inline-block
+        .time
+          color: #959f9f
+          span
+            color: #323c3c
+
+  .list-holder
+    display: table
+    width: 100%
+    margin-top: -12px
+
+    .list-header
+      display: table-row
+
+      .col
+        height: 38px
+        vertical-align: middle
+        text-align: center
+        font-size: 14px
+        color: #323c3c
+        font-weight: 500
+        display: table-cell
+      .col.text-left
+        text-align: left
+    .empty-row
+      .empty-cell
+        height: 15px
+    .list-row.show-action
+      .list-cell:after
+        position: absolute
+        left: 0
+        right: 0
+        bottom: 0
+        top: 0
+        background: rgba(29,54,73,.6)
+        content: ''
+    .list-row
+      display: table-row
+      background: #ffffff
+      border-radius: 3px
+      box-shadow: 0 0 3px rgba(0,0,0,.1)
+      margin-bottom: 15px
+
+      .list-cell
+        position: relative
+        height: 50px
+        font-size: 13px
+        font-weight: 500
+        color: #16a4de
+        vertical-align: middle
+        display: table-cell
+
+        .action-popup
+          display: block
+          position: absolute
+          top: 0
+          right: 0
+          width: 280px
+          background: #ffffff
+          box-shadow: 0 0 8px rgba(0,0,0,.4)
+          border-radius: 3px
+          z-index: 10
+
+          .action-item
+            display: block
+            line-height: 57px
+            padding-left: 55px
+            font-size: 13px
+            text-align: left
+            color: #6d7777
+            background: url("../i/icons.png") no-repeat
+            background-size: 100px
+            @include image-2x("../i/icons-2x.png")
+          .action-item.automation
+            background-position: 20px -1180px
+            border-bottom: 1px solid #eceff2
+          .action-item.schedule
+            background-position: 20px -1240px
+
+        .status:before
+          position: absolute
+          content: ''
+          width: 10px
+          height: 10px
+          border-radius: 5px
+          left: 16px
+          top: 3px
+        .status.up:before
+          background: #8dc63f
+        .status.over:before
+          background: #f8971d
+        .status.down:before
+          background: #ee3124
+        .status
+          position: relative
+          line-height: 18px
+          height: 18px
+          padding-left: 35px
+          cursor: pointer
+          color: #16a4de
+          text-transform: uppercase
+
+        .action
+          display: inline-block
+          background: url("../i/icons.png") no-repeat 50% -650px
+          background-size: 100px
+          @include image-2x("../i/icons-2x.png")
+          height: 20px
+          margin-top: 6px
+          opacity: .3
+          width: 30px
+        .action:hover
+          opacity: 1
+
+        .close
+          position: absolute
+          width: 12px
+          height: 12px
+          background: url("../i/icons.png") no-repeat 0 -1126px
+          background-size: 100px
+          @include image-2x("../i/icons-2x.png")
+          top: 14px
+          right: 14px
+          opacity: .5
+
+        .close:hover
+          opacity: 1
+
+        .next-activity
+          color: #8dc63f
+        .time
+          color: #959f9f
+          span
+            color: #323c3c
+            font-weight: 500
+        .down-time
+          color: #ee3124
+
+
+/*dashboard-module*/
+.dashboard-module.show
+  right: 0
+.dashboard-module
+  position: fixed
+  top: 0
+  bottom: 0
+  right: -252px
+  width: 252px
+  z-index: 10
+  background: #1d3649
+  padding-top: 38px
+  overflow: auto
+  box-shadow: 0 3px 10px rgba(0,0,0,.2)
+  transition: right .2s
+
+  .close
+    position: absolute
+    width: 15px
+    height: 15px
+    background: url("../i/icons.png") no-repeat 0 -800px
+    background-size: 100px
+    @include image-2x("../i/icons-2x.png")
+    top: 19px
+    right: 20px
+    opacity: .3
+
+  .close:hover
+    opacity: 1
+
+  .title
+    display: block
+    height: 50px
+    padding: 10px 20px
+    font-size: 16px
+    color: #ffffff
+    font-weight: 500
+    text-transform: uppercase
+
+  .search-input
+    display: block
+    height: 40px
+    border: none
+    padding: 10px 5px 10px 50px
+    line-height: 20px
+    font-size: 14px
+    width: 100%
+    color: #ffffff
+    background: #192f40 url("../i/icons.png") no-repeat 20px -820px
+    background-size: 100px
+    @include image-2x("../i/icons-2x.png")
+
+  .modules
+    position: absolute
+    top: 128px
+    left: 0
+    bottom: 0
+    right: 0
+    overflow: auto
+    ul
+      margin: 0
+      padding: 0
+
+      li
+        display: block
+        line-height: 46px
+
+        .module.checked
+          color: #ffffff
+        .module
+          display: block
+          overflow: hidden
+          white-space: nowrap
+          text-overflow: ellipsis
+          padding-left: 20px
+          font-size: 14px
+          height: 47px
+          color: rgba(255,255,255,.3)
+          transition: color .2s
+          position: relative
+          border-bottom: 1px solid #344a5c
+
+          a.expand-toggle
+            display: block
+            width: 16px
+            height: 16px
+            margin: 15px 7px 0 0
+            background: url("../i/icons.png") no-repeat 0 -865px
+            background-size: 100px
+            @include image-2x("../i/icons-2x.png")
+
+          a.expand-toggle.expand
+            background-position: 0 -881px
+
+          a.load-more
+            font-size: 14px
+            color: #16a4de
+
+          .toggle-box
+            top: 15px
+            right: 18px
+            position: absolute
+            background: #111717
+            border: none
+            height: 14px
+            width: 26px
+        li
+          .module
+            padding-left: 40px
+
+          li
+            .module
+              padding-left: 63px
+
+.popup
+  display: block
+  position: absolute
+  box-shadow: 0 0 10px rgba(0,0,0,.5)
+  background: #ffffff
+  color: #6d7777
+  border-radius: 2px
+  z-index: 11
+
+  .arrow
+    position: absolute
+    background: url("../i/icons.png") no-repeat
+    background-size: 100px
+    @include image-2x("../i/icons-2x.png")
+
+  .arrow-top
+    top: -13px
+    left: 50%
+    margin-left: -7px
+    background-position: 0 -897px
+    width: 15px
+    height: 13px
+
+/*filter popup*/
+.filter-popup,
+.automation-filter
+  left: 1px
+  right: 2px
+  top: 41px
+
+  .arrow-top
+    left: auto
+    right: 38px
+
+  .activity-type
+    .activity
+      display: block
+      border-bottom: 1px solid #f1f3f4
+      height: 40px
+      padding: 10px 0 10px 18px
+      font-size: 0
+
+      a
+        display: inline-block
+        line-height: 20px
+        padding-left: 26px
+        font-size: 13px
+        color: #959f9f
+        position: relative
+      a.select
+        color: #323c3c
+      a:before
+        content: ''
+        position: absolute
+        width: 16px
+        height: 16px
+        border: 1px solid #b0baba
+        left: 0
+        top: 1px
+        border-radius: 50%
+      a.select:after
+        content: ''
+        position: absolute
+        width: 10px
+        height: 10px
+        background: #16a4de
+        left: 3px
+        top: 4px
+        border-radius: 50%
+
+  .action-type
+    .action-header
+      display: block
+      height: 30px
+      background: #f1f3f4 url("../i/icons.png") no-repeat 100% -1385px
+      background-size: 100px
+      @include image-2x("../i/icons-2x.png")
+      padding: 0 18px
+      line-height: 30px
+      color: #323c3c
+      font-size: 13px
+      cursor: pointer
+    .action-header.collaps
+      background-position: 100% -1445px
+
+    .action
+      display: block
+      height: 45px
+      border-bottom: 1px solid #f1f3f4
+      padding: 14px 18px
+      line-height: 16px
+      color: #6d7777
+      font-size: 14px
+
+      .toggle-box.checked::after
+        background: #16a4de
+
+
+/*automation popup*/
+.automation-filter
+  width: 260px
+  right: 0
+  left: auto
+  .arrow-top
+    right: 20px
+
+
+/*sort-popup*/
+.sort-popup,
+.pager-popup
+  width: 158px
+  top: 34px
+
+  a
+    display: block
+    border-bottom: 1px solid #f1f3f4
+    height: 40px
+    padding: 10px 12px
+    line-height: 20px
+    font-size: 12px
+    color: #959f9f
+  a.select,
+  a:hover
+    background: #16a4de
+    color: #ffffff
+.pager .pager-popup
+  width: 58px
+  left: 50%
+  margin-left: -38px
+  top: 33px
+  a
+    text-align: center
+    display: block
+    width: 100%
+    padding: 0
+    line-height: 40px
+
+/*default calendar style*/
+.uib-datepicker,
+.uib-datepicker-popup
+  width: 300px
+  background: #ffffff
+  outline: none
+  border: none
+
+.uib-daypicker,
+.uib-monthpicker,
+.uib-yearpicker
+  width: 100%
+  table-layout: fixed
+  outline: none
+
+  table
+    outline: none
+
+  .btn,
+  button,
+  button.active
+    color: #323c3c
+    box-shadow: none
+    outline: none
+    background: transparent
+
+    .text-info
+      color: inherit
+    .text-muted
+      color: inherit
+      opacity: .5
+  button.active
+    color: #16a4de
+  button.active:hover
+    background: transparent
+    color: #16a4de
+  button:active,
+  button:focus,
+  button:active:focus
+    outline: none
+
+  .uib-title
+    font-size: 16px
+    color: #323c3c
+    font-weight: 500
+    margin-top: 12px
+    margin-bottom: 6px
+
+  th
+    font-size: 14px
+    color: #999999
+    font-weight: 400
+    small
+      font-size: 100%
+
+    .uib-left,
+    .uib-right
+      width: 100%
+      text-align: center
+      i
+        background: url("../i/icons.png") no-repeat 0 -950px
+        background-size: 100px
+        @include image-2x("../i/icons-2x.png")
+        width: 12px
+        height: 21px
+        margin-top: 10px
+
+      i:before
+        content: ''
+    .uib-right
+      i
+        background-position: 100% -971px
+
+  .uib-day.weekend
+    button
+      span
+        opacity: .5
+  .uib-day.before
+    button.active
+      span:before
+        border: 1px solid #73a93c
+      span.text-info:before
+        border: 1px solid #faaf50
+    button
+      span
+        background: #8dc63f
+        color: #ffffff
+      span.text-info:before
+        border: 1px solid #faaf50
+  .uib-day.after
+    button.active
+      span:before
+        border: 1px solid #12749a
+    button
+      span
+        background: #16a4de
+        color: #ffffff
+      span.text-info:before
+        border: 1px solid #faaf50
+
+  .uib-day
+    button.active
+      span
+        border: 2px solid #ffffff
+        line-height: 26px
+      span:before
+        border: 2px solid #aaaaaa
+        content: ''
+        position: absolute
+        width: 32px
+        height: 32px
+        border-radius: 50%
+        left: -3px
+        top: -3px
+    button
+      span
+        height: 30px
+        border-radius: 50%
+        display: inline-block
+        line-height: 30px
+        width: 30px
+        position: relative
+        font-size: 14px
+      span.text-info
+        border: 2px solid #ffffff
+        line-height: 26px
+      span.text-info:before
+        content: ''
+        position: absolute
+        width: 32px
+        height: 32px
+        border-radius: 50%
+        left: -3px
+        top: -3px
+        border: 2px solid #faaf50
+
+/*automation-schedule*/
+.popup-holder
+  position: fixed
+  left: 0
+  top: 0
+  bottom: 0
+  right: 0
+  background: rgba(0,0,0,.7)
+  overflow: auto
+  z-index: 2000
+
+.automation-schedule
+  width: 820px
+  left: 50%
+  margin-left: -410px
+  top: 50%
+  position: relative
+
+  .header
+    display: block
+    height: 56px
+    border-bottom: 1px solid #d2d6d9
+    padding: 15px 30px
+    line-height: 26px
+    font-size: 18px
+    color: #323c3c
+    font-weight: 500
+    background: transparent
+    border-radius: 3px 3px 0 0
+
+    span
+      color: #16a4de
+
+
+  .footer
+    height: 76px
+    border-top: 1px solid #d2d6d9
+    padding: 20px 30px
+    line-height: 35px
+
+    .send-notification
+      display: block
+      background: url("../i/icons.png") no-repeat 0 -910px
+      background-size: 100px
+      @include image-2x("../i/icons-2x.png")
+      line-height: 20px
+      margin: 7px 0
+      font-size: 14px
+      font-weight: 500
+      color: #323c3c
+      padding-left: 27px
+    .send-notification.select
+      background-position: 0 -930px
+
+    .btn
+      display: block
+      width: 110px
+      height: 35px
+      font-size: 16px
+      line-height: 35px
+      color: #ffffff
+      margin-left: 20px
+
+  .content
+    display: block
+    position: relative
+    .calendar
+      display: block
+      padding: 0 18px
+      width: 450px
+      border-right: 1px solid #d8dbde
+      min-height: 300px
+      padding-bottom: 15px
+
+      .well
+        padding: 0
+        margin: 0
+        border: none
+        background: transparent
+        width: 100%
+
+        .uib-daypicker,
+        .uib-monthpicker,
+        .uib-yearpicker
+          width: 100%
+          table-layout: fixed
+
+          .btn
+            color: #323c3c
+            box-shadow: none
+            outline: none
+            background: transparent
+
+            .text-muted
+              color: inherit
+              opacity: .5
+
+          .uib-title
+            font-size: 16px
+            color: #323c3c
+            font-weight: 500
+            margin-top: 12px
+            margin-bottom: 6px
+
+          th
+            font-size: 14px
+            color: #999999
+            font-weight: 400
+            small
+              font-size: 100%
+
+            .uib-left,
+            .uib-right
+              width: 100%
+              text-align: center
+              i
+                background: url("../i/icons.png") no-repeat 0 -950px
+                background-size: 100px
+                @include image-2x("../i/icons-2x.png")
+                width: 12px
+                height: 21px
+                margin-top: 10px
+
+              i:before
+                content: ''
+            .uib-right
+              i
+                background-position: 100% -971px
+
+          .uib-day.before
+            button.active
+              span:before
+                border: 2px solid #73a93c
+            button
+              span
+                background: #8dc63f
+                color: #ffffff
+              span.text-info:before
+                border: 2px solid #faaf50
+          .uib-day.after
+            button.active
+              span:before
+                border: 2px solid #12749a
+            button
+              span
+                background: #16a4de
+                color: #ffffff
+              span.text-info:before
+                border: 2px solid #faaf50
+
+          .uib-day
+            button.active
+              span
+                line-height: 26px
+              span:before
+                content: ''
+                position: absolute
+                width: 34px
+                height: 34px
+                border-radius: 50%
+                left: -4px
+                top: -4px
+                border: 2px solid #aaa
+            button
+              span
+                height: 30px
+                border-radius: 50%
+                display: inline-block
+                line-height: 30px
+                width: 30px
+                position: relative
+                font-size: 14px
+              span.text-info
+                border: 2px solid #ffffff
+                line-height: 26px
+              span.text-info:before
+                content: ''
+                position: absolute
+                width: 34px
+                height: 34px
+                border-radius: 50%
+                left: -4px
+                top: -4px
+                border: 2px solid #faaf50
+
+
+    .schedule
+      display: block
+      width: 370px
+      position: absolute
+      top: 0
+      right: 0
+      bottom: 0
+      padding-top: 30px
+
+      .header
+        display: block
+        position: absolute
+        left: 0
+        top: 0
+        right: 0
+        height: 30px
+        border-bottom: none
+        background: #f8f8f8
+        padding: 0 20px
+
+        input
+          display: block
+          width: 300px
+          background: transparent
+          height: 30px
+          padding: 4px 4px 4px 20px
+          font-size: 13px
+          color: #323c3c
+          line-height: 20px
+          border: none
+          background: url("../i/icons.png") no-repeat 0 -992px
+          background-size: 100px
+          @include image-2x("../i/icons-2x.png")
+          box-sizing: border-box
+
+        .filter
+          display: block
+          width: 15px
+          height: 20px
+          background: url("../i/icons.png") no-repeat 0 -1024px
+          background-size: 100px
+          @include image-2x("../i/icons-2x.png")
+          margin-top: 5px
+          opacity: .4
+
+        .filter:hover
+          opacity: 1
+
+      .schedule-holder
+        display: block
+        position: relative
+        height: 100%
+        overflow: auto
+        padding-left: 20px
+        padding-top: 20px
+
+        .holder:before
+          position: absolute
+          content: ''
+          top: 10px
+          left: 35px
+          bottom: 25px
+          width: 1px
+          background: #d6dbdb
+        .holder
+          position: relative
+          padding-left: 2px
+
+        .time-hold.show-info
+          .info
+            position: relative
+          .info:before
+            position: absolute
+            top: 0
+            left: 20px
+            right: 0
+            height: 30px
+            content: ''
+            background: #f5f5f5
+          .info:after
+            position: absolute
+            top: 0
+            left: 2px
+            right: 0
+            width: 18px
+            height: 30px
+            content: ''
+            border: none
+            border-right: 20px solid #f5f5f5
+            border-top: 15px solid transparent
+            border-bottom: 15px solid transparent
+
+          .time
+            border: 2px solid #ffffff
+            position: relative
+            line-height: 28px
+          .time:before
+            border: 2px solid #5d862e
+            content: ''
+            position: absolute
+            left: -4px
+            top: -4px
+            right: -4px
+            bottom: -4px
+            border-radius: 17px
+          .time.before:before
+            border: 2px solid #719d31
+          .time.after:before
+            border: 2px solid #0f7299
+
+        .time-hold
+          display: block
+          position: relative
+          margin-bottom: 20px
+          z-index: 1
+
+          .date
+            display: block
+            height: 30px
+            width: 71px
+            border: 1px solid
+            border-radius: 15px
+            text-align: center
+            line-height: 30px
+            background: #ffffff
+            font-size: 13px
+            color: #6d7777
+          .date.today
+            border-color: #f89922
+          .date.before
+            border-color: #73a93c
+          .date.after
+            border-color: #0f7299
+
+          .time
+            display: block
+            height: 30px
+            width: 71px
+            border-radius: 15px
+            text-align: center
+            line-height: 32px
+            font-size: 13px
+            color: #ffffff
+            cursor: pointer
+          .time.today
+            background: #f89922
+          .time.before
+            background: #8dc63f
+          .time.after
+            background: #16a4de
+
+          .info
+            line-height: 30px
+            padding-left: 20px
+            margin-left: 71px
+            cursor: pointer
+
+            *
+              position: relative
+              z-index: 1
+            a
+              font-size: 13px
+              font-weight: 500
+              color: #16a4de
+
+            .arrow
+              font-size: 13px
+              display: inline-block
+              font-weight: 500
+              color: #6d7777
+              text-align: center
+              width: 18px
+
+  .schedule-info
+    display: block
+    border-top: 1px solid #d2d6d9
+    padding: 3px 25px 18px
+
+    .input-row
+      padding: 6px 0
+      line-height: 40px
+
+      label
+        width: 112px
+        text-align: right
+        font-size: 14px
+        font-weight: 500
+        color: #323c3c
+
+      .input-holder
+        margin-left: 130px
+
+        a.name
+          display: inline-block
+          margin: 10px 12px
+          line-height: 20px
+          font-size: 14px
+          color: #16a4de
+
+        .value-holder.small
+          position: relative
+          input
+            width: 54px
+            height: 20px
+            border: none
+            text-align: right
+            padding: 0 20px 0 0
+            line-height: 22px
+        .value-holder.small:before
+          position: absolute
+          right: 0
+          top: 0
+          line-height: 40px
+          padding-right: 12px
+          content: 'GB'
+          font-size: 14px
+          color: #959f9f
+
+        .value-holder
+          display: block
+          height: 40px
+          font-size: 14px
+          color: #6d7777
+          padding: 10px 12px
+          line-height: 20px
+          background: #fafafa
+          border-radius: 2px
+
+        .action-item
+          width: 290px
+
+        .schedule-start
+          width: 190px
+
+        .sequence
+          width: 100px
+
+        .time-schedule
+          width: 190px
+
+        .recurring
+          width: 163px
+          background: transparent
+        .recurring.toggle
+          width: 68px
+
+        .end,
+        .sequence-label,
+        .time-label
+          display: block
+          width: 56px
+          line-height: 40px
+          text-align: center
+          font-size: 14px
+          font-weight: 500
+          color: #323c3c
+
+        .sequence-label
+          width: 82px
+        .time-label
+          width: 66px
+        .time-label.mini
+          width: 56px
+
+        .mini-dropdown
+          width: 140px
+
+        .sub-label.last
+          width: 118px
+        .sub-label
+          display: block
+          width: 134px
+          text-align: right
+          font-size: 14px
+          font-weight: 500
+          color: #323c3c
+          padding-right: 13px
+
+        input
+          display: block
+          height: 40px
+          border: 1px solid #e2e7ed
+          padding: 10px 12px
+          line-height: 20px
+          font-size: 13px
+          color: #3c4646
+          background: #fafafa
+
+        input::-moz-placeholder
+          color: #3c4646
+          opacity: 1
+        input::-webkit-input-placeholder
+          color: #3c4646
+        input:-ms-input-placeholder
+          color: #3c4646
+
+        .date-picker
+          background-image: url("../i/icons.png")
+          background-repeat: no-repeat
+          background-position: 100% -1046px
+          background-size: 100px
+          @include image-2x("../i/icons-2x.png")
+
+        .start-date
+          width: 140px
+
+        .time-picker
+          margin-left: 10px
+          background: #fafafa
+          border: 1px solid #e2e7ed
+          height: 40px
+
+          td
+            line-height: 38px
+            vertical-align: middle
+
+          input,
+          button
+            border: none
+            box-shadow: none
+            color: #3c4646
+            padding: 0
+            height: 37px
+            outline: none
+            font-size: 13px
+            background: transparent
+            width: 45px !important
+            display: block
+            padding: 8px 0
+            line-height: 21px
+
+        .toggle-box
+          margin-top: 2px
+          margin-left: -12px
+        .toggle-box:after
+          background: #a7b2bb
+        .toggle-box.checked:after
+          background: #16a4de
+
+.popover.right
+  .arrow
+    border-width: 8px
+    left: -14px
+    margin-top: -8px
+    background: url("../i/icons.png") no-repeat 0 -1480px
+    height: 16px
+    width: 26px
+    border: none
+  .arrow:after
+    display: none
+.popover.left
+  .arrow
+    border-width: 8px
+    right: -18px
+    margin-top: -8px
+    background: url("../i/icons.png") no-repeat -28px -1480px
+    height: 16px
+    width: 26px
+    border: none
+  .arrow:after
+    display: none
+
+.popover
+  border-radius: 2px
+  border: none
+  box-shadow: 0 0 10px rgba(0,0,0,.5)
+  padding: 0
+  width: 300px
+  max-width: 500px
+
+  .popover-content
+    padding: 0
+    min-height: 100px
+
+    .header
+      height: 42px
+      border-bottom: 1px solid #dadfe6
+      line-height: 42px
+      padding: 0 20px
+      font-size: 14px
+      color: #3c4646
+      text-transform: uppercase
+      position: relative
+
+      .close
+        position: absolute
+        width: 12px
+        height: 12px
+        background: url("../i/icons.png") no-repeat 0 -1126px
+        background-size: 100px
+        @include image-2x("../i/icons-2x.png")
+        top: 12px
+        right: 12px
+        opacity: .3
+
+      .close:hover
+        opacity: 1
+
+    .holder:before
+      position: absolute
+      content: ''
+      top: 10px
+      left: 35px
+      bottom: 25px
+      width: 1px
+      background: #d6dbdb
+
+    .holder
+      position: relative
+      margin: 10px 0 0 35px
+
+    .time-hold.show-info
+      .info
+        position: relative
+      .info:before
+        position: absolute
+        top: 0
+        left: 20px
+        right: 0
+        height: 30px
+        content: ''
+        background: #f5f5f5
+      .info:after
+        position: absolute
+        top: 0
+        left: 2px
+        right: 0
+        width: 18px
+        height: 30px
+        content: ''
+        border: none
+        border-right: 20px solid #f5f5f5
+        border-top: 15px solid transparent
+        border-bottom: 15px solid transparent
+
+      .time
+        border: 2px solid #ffffff
+        position: relative
+        line-height: 28px
+      .time:before
+        border: 2px solid #5d862e
+        content: ''
+        position: absolute
+        left: -4px
+        top: -4px
+        right: -4px
+        bottom: -4px
+        border-radius: 17px
+      .time.before:before
+        border: 2px solid #719d31
+      .time.after:before
+        border: 2px solid #0f7299
+
+    .time-hold
+      display: block
+      position: relative
+      margin-bottom: 20px
+      z-index: 1
+
+      .date
+        display: block
+        height: 30px
+        width: 71px
+        border: 1px solid
+        border-radius: 15px
+        text-align: center
+        line-height: 30px
+        background: #ffffff
+        font-size: 13px
+        color: #6d7777
+      .date.today
+        border-color: #d6dbdb
+      .date.before
+        border-color: #73a93c
+      .date.after
+        border-color: #0f7299
+
+      .time
+        display: block
+        height: 30px
+        width: 71px
+        border-radius: 15px
+        text-align: center
+        line-height: 32px
+        font-size: 13px
+        color: #ffffff
+        cursor: pointer
+      .time.today
+        background: #f89922
+      .time.before
+        background: #8dc63f
+      .time.after
+        background: #16a4de
+
+      .info
+        line-height: 30px
+        padding-left: 20px
+        margin-left: 71px
+        cursor: pointer
+
+        *
+          position: relative
+          z-index: 1
+        a
+          font-size: 13px
+          font-weight: 500
+          color: #16a4de
+
+        .arrow
+          font-size: 13px
+          display: inline-block
+          font-weight: 500
+          color: #6d7777
+          text-align: center
+          width: 18px
+
+        span
+          color: #6d7777
+
+
+.environment-holer .server .popover
+  width: 270px
+
+.environment-holer .popover
+  width: 250px
+  margin-top: 100px
+  top: -151px !important
+
+  .arrow
+    margin-top: 0
+    top: 53px
+
+  .content-top
+    display: block
+    height: 40px
+    line-height: 40px
+    border-bottom: 1px solid #eceff2
+    padding: 0 20px
+
+    .cat
+      display: block
+      padding-right: 18px
+      font-size: 14px
+      color: #6d7777
+      font-weight: 500
+      height: 39px
+
+  .up
+    color: #8dc63f
+  .partial
+    color: #f8971d
+  .down
+    color: #ee3124
+
+  .details
+    padding: 0
+    max-height: 242px
+    overflow: auto
+    .type.alt
+      background: #f7fbff
+    .type
+      display: block
+      padding: 0 20px
+      height: 40px
+      line-height: 40px
+      font-size: 14px
+
+      .count
+        color: #6d7777
+      .name
+        color: #16a4de
+
+    .detail-header
+      display: block
+      height: 40px
+      line-height: 40px
+      background: #f5f5f5
+      padding: 0 20px 0 10px
+      font-size: 13px
+      color: #16a4de
+
+      a.toggle-expand
+        display: block
+        width: 16px
+        height: 16px
+        margin: 11px 9px
+        background: url("../i/icons.png") no-repeat 0 -781px
+        background-size: 100px
+        @include image-2x("../i/icons-2x.png")
+      a.toggle-expand.expand
+        background-position: 0 -765px
+
+/*environment-table*/
+table.environment-table
+  width: 100%
+  margin: 0
+
+  .checkbox
+    display: inline-block
+    width: 16px
+    height: 16px
+    border: 1px solid #e2e7ed
+    border-radius: 2px
+    background: #ffffff
+    position: relative
+  .checkbox.checked:after
+    position: absolute
+    content: ''
+    left: 2px
+    top: 2px
+    right: 2px
+    bottom: 2px
+    background: #16a4de
+
+  thead
+    th:first-child
+      width: 48px
+    th
+      height: 40px
+      vertical-align: middle
+      background: #dadfe6
+      font-size: 13px
+      padding: 0
+      color: #323c3c
+      font-weight: 500
+      line-height: 1
+      position: relative
+
+      .server-filter
+        font-size: 24px
+        font-weight: 300
+        color: #999
+        padding-right: 10px
+      .server-filter:hover
+        color: #333
+
+      .server-filter-popup
+        position: absolute
+        top: 0
+        right: 0
+        width: 252px
+        z-index: 10
+        background: #1d3649
+        padding-top: 38px
+        overflow: auto
+        height: 555px
+        box-shadow: 0 3px 10px rgba(0,0,0,.2)
+
+        .close
+          position: absolute
+          width: 15px
+          height: 15px
+          background: url("../i/icons.png") no-repeat 0 -800px
+          background-size: 100px
+          @include image-2x("../i/icons-2x.png")
+          top: 19px
+          right: 20px
+          opacity: .3
+
+        .close:hover
+          opacity: 1
+
+        .title
+          display: block
+          height: 50px
+          padding: 10px 20px
+          font-size: 16px
+          color: #ffffff
+          font-weight: 500
+          text-transform: uppercase
+
+        .search-input
+          display: block
+          height: 40px
+          border: none
+          padding: 10px 5px 10px 50px
+          line-height: 20px
+          font-size: 14px
+          width: 100%
+          color: #ffffff
+          background: #192f40 url("../i/icons.png") no-repeat 20px -820px
+          background-size: 100px
+          @include image-2x("../i/icons-2x.png")
+
+        .modules
+          position: absolute
+          top: 38px
+          left: 0
+          bottom: 0
+          right: 0
+          overflow: auto
+          ul
+            margin: 0
+            padding: 0
+
+            li
+              display: block
+              line-height: 46px
+
+              .module.checked
+                color: #ffffff
+              .module
+                display: block
+                overflow: hidden
+                white-space: nowrap
+                text-overflow: ellipsis
+                padding-left: 20px
+                font-size: 14px
+                height: 47px
+                color: rgba(255,255,255,.3)
+                transition: color .2s
+                position: relative
+                border-bottom: 1px solid #344a5c
+
+                a.expand-toggle
+                  display: block
+                  width: 16px
+                  height: 16px
+                  margin: 15px 7px 0 0
+                  background: url("../i/icons.png") no-repeat 0 -865px
+                  background-size: 100px
+                  @include image-2x("../i/icons-2x.png")
+
+                a.expand-toggle.expand
+                  background-position: 0 -881px
+
+                a.load-more
+                  font-size: 14px
+                  color: #16a4de
+
+                .toggle-box
+                  top: 15px
+                  right: 18px
+                  position: absolute
+                  background: #111717
+                  border: none
+                  height: 14px
+                  width: 26px
+              li
+                .module
+                  padding-left: 40px
+
+                li
+                  .module
+                    padding-left: 63px
+
+
+  tbody
+    tr:nth-of-type(odd)
+      background: transparent
+    tr:nth-of-type(even)
+      background: #fafafa
+    td
+      color: #16a4de
+      font-size: 13px
+      vertical-align: middle
+      height: 40px
+      line-height: 1
+      padding: 0
+      border: none
+
+      .server-name
+        color: #16a4de
+
+      .status
+        display: inline-block
+        width: 10px
+        height: 10px
+        border-radius: 5px
+      .status.up
+        background: #8dc63f
+      .status.partial
+        background: #f8971d
+      .status.down
+        background: #ee3124
+
+      .upcoming
+        color: #6d7777
+        font-size: 14px
+        font-weight: 500
+
+        .time-display
+          display: inline-block
+          width: 71px
+          height: 30px
+          border-radius: 15px
+          background: #16a4de
+          color: #ffffff
+          margin-right: 15px
+          text-align: center
+          line-height: 30px
+
+
+      .action-btn
+        display: inline-block
+        background: url("../i/icons.png") no-repeat 50% -650px
+        background-size: 100px
+        @include image-2x("../i/icons-2x.png")
+        height: 20px
+        margin-top: 6px
+        opacity: .3
+        width: 30px
+      .action-btn:hover
+        opacity: 1
+.ng-table-counts
+  display: none
+.pagination
+  float: right
+  margin: 14px
+
+  li
+    a
+      width: 20px
+      height: 20px
+      color: #ffffff
+      border-radius: 10px
+      margin: 0 5px
+      padding: 0
+      background: #16a4de
+      line-height: 20px
+      text-align: center
+      border: none
+  li
+    a:hover
+      background: #16a4de
+      color: #ffffff
+  li.active
+    a
+      background: #c9ced4
+  li.active
+    a:hover
+      background: #c9ced4
+  li:first-child,
+  li:last-child
+    a,
+    a:hover
+      color: transparent
+      font-size: 14px
+      margin: 0
+    a
+      background: transparent url("../i/icons.png") no-repeat
+  li.disabled:first-child,
+  li.disabled:last-child
+    a,
+    a:hover
+      color: transparent
+  li:first-child
+    a
+      background-position: -20px -1500px
+  li:last-child
+    a
+      background-position: 0 -1500px
+  li.disabled:first-child
+    a
+      background-position: -60px -1500px
+  li.disabled:last-child
+    a
+      background-position: -40px -1500px
+
+.pager
+  display: block
+  line-height: 20px
+  margin: 14px
+  color: #959f9f
+  font-size: 13px
+  position: relative
+
+  a
+    color: #16a4de
+    display: inline-block
+    width: 20px
+    text-align: center
+
+/*custom scroll style*/
+.mCS-minimal.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar
+  background: rgba(50,60,60,.1)
+
+.mCS-minimal.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar
+  background-color: rgba(50,60,60,0.5)
+.mCS-autoHide>.mCustomScrollBox~.mCSB_scrollTools
+  opacity: .75
+
+.empty-space
+  height: 250px

@@ -1,0 +1,168 @@
+<div class="page-top clearfix">
+
+    <div class="breadcrumb">
+        <a href="javascript:" class="pull-left" data-ui-sref="dashboard">Dashboard</a>
+        <span class="arrow pull-left text-center"></span>
+        <span class="current pull-left">Applications</span>
+    </div>
+    <!-- End breadcrumb-->
+
+    <div class="page-title">
+        <h3 class="title pull-left">Applications ({{applicationData.apps.length}})</h3>
+        <!-- End title-->
+        <div class="server-status pull-right">
+            <div class="server running">
+                <span class="type">Running</span>
+                <span class="count">{{applicationData.serverStatus.running}}</span>
+            </div>
+            <div class="server standby">
+                <span class="type">Standby</span>
+                <span class="count">{{applicationData.serverStatus.standby}}</span>
+            </div>
+            <div class="server shutdown">
+                <span class="type">Shutdown</span>
+                <span class="count">{{applicationData.serverStatus.shutdown}}</span>
+            </div>
+        </div>
+        <!-- End server-status-->
+    </div>
+    <!-- End title-->
+
+    <div class="server-time text-center">
+        <div class="time-hold">
+            Uptime: <span class="up">{{applicationData.serverTime.uptime}}</span> <span class="hour">hours</span>
+        </div>
+        <div class="time-hold">
+            Downtime: <span class="down">{{applicationData.serverTime.downtime}}</span> <span class="hour">hours</span>
+        </div>
+        <div class="time-hold">
+            Cost Savings Overtime: <span class="over">{{applicationData.serverTime.overtime}}</span> <span class="hour">/month</span>
+        </div>
+
+    </div>
+    <!-- End server-time-->
+
+    <div class="action-bar">
+        <div class="pull-left action-holder">
+            <a href="javascript:" id="period" data-ng-class="{'active':periodOptions.show}" data-ng-click="periodOptions.show=true" class="filter pull-left">Time Period: {{periodOptions.selectedOption}}</a>
+            <div data-ng-include="'templates/popup/PeriodPopup.html'" data-off-click="periodOptions.show = false" data-off-click-filter="'#period'" data-off-click-if="periodOptions.show" class="popup sort-popup animate-if" data-ng-if="periodOptions.show"></div>
+        </div>
+
+        <div class="pull-left action-holder">
+            <a href="javascript:" id="sort-by" data-ng-class="{'active':sortOptions.sortBy}" data-ng-click="sortOptions.sortBy=true" class="filter pull-left">Sort by {{sortOptions.sortOption}}</a>
+            <div data-ng-include="'templates/popup/SortPopup.html'" data-off-click="sortOptions.sortBy = false" data-off-click-filter="'#sort-by'" data-off-click-if="sortOptions.sortBy" class="popup sort-popup animate-if" data-ng-if="sortOptions.sortBy"></div>
+        </div>
+
+            <a href="javascript:" class="filter pull-left">Show all status <i class="up"></i><i class="over"></i><i class="down"></i></a>
+
+
+        <a href="javascript:" data-ng-click="view = 'list'" data-ng-class="{'active':view==='list'}" class="list-view pull-right"></a>
+        <a href="javascript:" data-ng-click="view = 'grid'" data-ng-class="{'active':view==='grid'}" class="grid-view pull-right"></a>
+    </div>
+    <!-- End action-bar-->
+</div>
+<!-- End page-header-->
+
+<div data-ng-scrollbars class="page-content with-breadcrumb">
+    <div data-ng-if="view==='grid'" class="animate-if column-content pull-left">
+        <div class="row">
+            <div class="col col-md-4" data-ng-repeat="app in applicationData.apps">
+                <div class="box" data-ng-class="{'show-action':app.showAction}">
+                    <div class="header">
+                        <h4 class="{{app.status}}"><a href="javascript:" data-ui-sref="applicationDetails" data-uib-tooltip="{{app.name}}">{{app.name}}</a>
+
+                            <span class="actions pull-right">
+                                <a href="javascript:" class="pull-right action" data-ng-click="applicationData.selectedRow.showAction=false;applicationData.selectedRow=app;app.showAction=true;"></a>
+                                <a href="javascript:" data-ng-click="showAutomationPopup()" class="pull-right schedule"></a>
+                            </span>
+                        </h4>
+                        <div data-off-click="applicationData.selectedRow.showAction=false;" data-off-click-filter="'.action'" class="action-popup animate-if" data-ng-if="app.showAction">
+                            <a href="javascript:" class="close" data-ng-click="app.showAction=false"></a>
+                            <a href="javascript:" class="action-item schedule">View Schedule</a>
+                            <a href="javascript:" class="action-item remove" data-ng-click="$parent.remove(applicationData.apps,app)">Remove Module</a>
+                        </div>
+                    </div>
+                    <!-- End header-->
+                    <div class="content">
+                        <div class="environment-holer">
+                            <div class="pull-left">
+                                <span data-popover-is-open="app.isOpen" data-ng-click="EnvironmentPopover.open(app)" data-uib-popover-template="'templates/popup/EnviromentPopup.html'" data-popover-placement="{{$index%3===2?'left':'right'}}" data-uib-popover> <span class="val">{{app.environment}}</span> Environments</span>
+                            </div>
+                            <div class="server pull-right">
+                                <span data-popover-is-open="app.isServerOpen" data-ng-click="ServerPopover.open(app)" data-uib-popover-template="'templates/popup/ServerPopup.html'" data-popover-placement="{{$index%3===2?'left':'right'}}" data-uib-popover><span class="val">{{app.servers}}</span> Servers</span>
+                            </div>
+                        </div>
+                        <!-- End comment-holder-->
+
+                        <div class="details">
+                            <div>Downtime <span>(hours)</span>: <span class="val down pull-right">{{app.downtime}}</span> </div>
+                            <div>Activities Scheduled<span class="val pull-right">{{app.activities}}</span></div>
+                        </div>
+                        <!-- End details-->
+
+                        <div class="activity-by-type clearfix">
+                            <div class="type pull-left" data-ng-style="{'width':100/app.activityTypes.length+'%'}" data-ng-repeat="type in app.activityTypes">{{type.name}}
+                                <span class="val">
+                                    <span data-popover-is-open="type.isActivityOpen" data-ng-click="ActivityPopover.open(type)" data-uib-popover-template="'templates/popup/SchedulePopup.html'" data-popover-placement="right" data-uib-popover >{{type.count}}</span>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- End activity-by-type-->
+                    </div>
+                    <!-- End content-->
+
+                    <div class="footer">
+                        Next Activity: <span class="activity">{{app.nextActivity}}</span>
+                        <span class="pull-right">in <span class="time">{{app.nextActivityTime}}</span> </span>
+                    </div>
+                    <!-- End footer-->
+                </div>
+            </div>
+        </div>
+        <!-- End row-->
+    </div>
+    <!-- End column-content-->
+
+    <div data-ng-if="view==='list'" class="animate-if column-content pull-left">
+
+        <div class="list-holder">
+            <div class="list-header">
+                <div class="col">Application Name</div>
+                <div class="col">Environments</div>
+                <div class="col">Servers</div>
+                <div class="col">Activities Scheduled</div>
+                <div class="col">Downtime (hours)</div>
+                <div class="col text-left">Next Activity</div>
+                <div class="col"></div>
+            </div>
+            <!-- End list-header-->
+            <div class="list-row" data-ng-class="{'show-action':app.showAction}" data-ng-repeat-start="app in applicationData.apps">
+                <div class="list-cell"><a href="javascript:" data-ui-sref="applicationDetails" class="status {{app.status}}">{{app.name}}</a></div>
+                <div class="list-cell text-center">{{app.environment}}</div>
+                <div class="list-cell text-center">{{app.servers}}</div>
+                <div class="list-cell text-center">{{app.activities}}</div>
+                <div class="list-cell text-center"><span class="down-time">{{app.downtime}}</span></div>
+                <div class="list-cell"><span class="next-activity">{{app.nextActivity}} </span><span class="time">(in <span>{{app.nextActivityTime}}</span>)</span> </div>
+                <div class="list-cell text-right">
+                    <a data-ng-click="applicationData.selectedRow.showAction=false;applicationData.selectedRow=app;app.showAction=true;" href="javascript:" class="action"></a>
+                    <div data-off-click="applicationData.selectedRow.showAction=false;" data-off-click-filter="'.action'" class="action-popup animate-if" data-ng-if="app.showAction">
+                        <a href="javascript:" class="close" data-ng-click="app.showAction=false"></a>
+                        <a href="javascript:" class="action-item automation">Automation</a>
+                        <a href="javascript:" class="action-item schedule">View Schedule</a>
+                    </div>
+                </div>
+            </div>
+            <!-- End list-row-->
+            <div class="empty-row" data-ng-repeat-end>
+                <div class="empty-cell"></div>
+            </div>
+            <!-- End list-row-->
+        </div>
+
+    </div>
+    <!-- End column-content-->
+</div>
+<!--page-content-->
+
+<div data-ng-scrollbars="" class="popup-holder" data-ng-click="hidePopup()"  data-ng-if="popup!==''" data-ng-include="'templates/popup/'+popup"></div>
+<!--End popup-->

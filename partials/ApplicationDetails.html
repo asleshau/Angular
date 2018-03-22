@@ -1,0 +1,227 @@
+<div class="page-top clearfix">
+
+    <div class="breadcrumb">
+        <a href="javascript:" class="pull-left" data-ui-sref="dashboard">Dashboard</a>
+        <span class="arrow pull-left text-center"></span>
+        <a href="javascript:" class="pull-left" data-ui-sref="applications">Applications</a>
+        <span class="arrow pull-left text-center"></span>
+        <span class="current pull-left">Acme App</span>
+    </div>
+    <!-- End breadcrumb-->
+
+    <div class="page-title">
+        <h3 class="title pull-left">Acme App</h3>
+        <!-- End title-->
+        <div class="server-status pull-right">
+            <div class="server running">
+                <span class="type">Running</span>
+                <span class="count">{{applicationDetails.serverStatus.running}}</span>
+            </div>
+            <div class="server standby">
+                <span class="type">Standby</span>
+                <span class="count">{{applicationDetails.serverStatus.standby}}</span>
+            </div>
+            <div class="server shutdown">
+                <span class="type">Shutdown</span>
+                <span class="count">{{applicationDetails.serverStatus.shutdown}}</span>
+            </div>
+        </div>
+        <!-- End server-status-->
+
+        <div class="app-details pull-right">
+            <div class="info pull-left">
+                <span>{{applicationDetails.environment}}</span> Environments
+            </div>
+            <div class="info pull-left">
+                <span>{{applicationDetails.appServers}}</span> Servers
+            </div>
+        </div>
+        <!-- End app-details-->
+    </div>
+    <!-- End title-->
+
+    <div class="server-time text-center">
+        <div class="time-hold">
+            Uptime: <span class="up">{{applicationDetails.serverTime.uptime}}</span> <span class="hour">hours</span>
+        </div>
+        <div class="time-hold">
+            Downtime: <span class="down">{{applicationDetails.serverTime.downtime}}</span> <span
+                class="hour">hours</span>
+        </div>
+        <div class="time-hold">
+            Cost Savings Overtime: <span class="over">{{applicationDetails.serverTime.overtime}}</span> <span
+                class="hour">/month</span>
+        </div>
+
+    </div>
+    <!-- End server-time-->
+
+    <div class="action-bar">
+        <div class="pull-left action-holder">
+        <a href="javascript:" id="sort-by" data-ng-class="{'active':sortOptions.sortBy}"
+           data-ng-click="sortOptions.sortBy=true" class="filter pull-left">Sort by {{sortOptions.sortOption}}</a>
+
+            <div data-ng-include="'templates/popup/SortPopup.html'" data-off-click="sortOptions.sortBy = false"
+                 data-off-click-filter="'#sort-by'" data-off-click-if="sortOptions.sortBy"
+                 class="popup sort-popup animate-if" data-ng-if="sortOptions.sortBy"></div>
+            </div>
+        <a href="javascript:" class="filter pull-left">Show all status <i class="up"></i><i class="over"></i><i
+                class="down"></i></a>
+
+
+        <a href="javascript:" data-ng-click="view = 'list'" data-ng-class="{'active':view==='list'}"
+           class="list-view pull-right"></a>
+        <a href="javascript:" data-ng-click="view = 'grid'" data-ng-class="{'active':view==='grid'}"
+           class="grid-view pull-right"></a>
+    </div>
+    <!-- End action-bar-->
+</div>
+<!-- End page-header-->
+
+<div data-ng-scrollbars class="page-content with-breadcrumb">
+
+
+    <div data-ng-if="view==='grid'" class="column-content with-sidebar pull-left">
+        <div class="row">
+            <div class="col col-md-6" data-ng-repeat="server in applicationDetails.servers">
+                <div class="box" data-ng-class="{'show-action':server.showAction}">
+                    <div class="header">
+                        <h4 class="text-uppercase {{server.status}}"><a href="javascript:" data-uib-tooltip="{{server.name}}"
+                                                                        data-ui-sref="environment">{{server.name}}</a>
+
+                            <span class="actions pull-right">
+                                <a href="javascript:" class="pull-right action" data-ng-click="applicationDetails.selectedRow.showAction=false;applicationDetails.selectedRow=server;server.showAction=true;"></a>
+                                <a href="javascript:" class="pull-right schedule"
+                                   data-ng-click="showAutomationPopup()"></a>
+                            </span>
+                        </h4>
+                        <div data-off-click="applicationDetails.selectedRow.showAction=false;" data-off-click-filter="'.action'" class="action-popup animate-if" data-ng-if="server.showAction">
+                            <a href="javascript:" class="close" data-ng-click="server.showAction=false"></a>
+                            <a href="javascript:" class="action-item schedule">View Schedule</a>
+                            <a href="javascript:" class="action-item remove" data-ng-click="$parent.remove(applicationDetails.servers,server)">Remove Module</a>
+                        </div>
+                    </div>
+                    <!-- End header-->
+                    <div class="content">
+                        <div class="environment-holer small-text">
+                            <div class="pull-left">
+                                <span data-popover-is-open="server.isServerOpen" data-ng-click="ServerPopover.open(server)" data-uib-popover-template="'templates/popup/ServerPopup.html'" data-popover-placement="right" data-uib-popover><span class="val">{{server.servers}}</span> Servers</span>
+                            </div>
+                            <div class="pull-right">
+                                <span class="val up">{{server.up}}</span> Up
+                                <span class="val margin-left down">{{server.down}}</span> Down
+                            </div>
+                        </div>
+                        <!-- End comment-holder-->
+
+                        <div class="details">
+                            <div>Activities Scheduled<span class="val pull-right">{{server.activities}}</span></div>
+                        </div>
+                        <!-- End details-->
+
+                        <div data-ng-scrollbars="" class="activity-time clearfix">
+                            <div class="activity-holder">
+                                <div class="activity" data-ng-repeat="activity in server.activitySchedule">
+                                    <span class="{{activity.class}}">{{activity.val}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End activity-by-type-->
+                    </div>
+                    <!-- End content-->
+
+                    <div class="footer">
+                        Next Activity: <span class="activity">{{server.nextActivity}}</span>
+                        <span class="pull-right">in <span class="time">{{server.nextActivityTime}}</span> </span>
+                    </div>
+                    <!-- End footer-->
+                </div>
+            </div>
+        </div>
+        <!-- End row-->
+    </div>
+
+    <div data-ng-if="view==='list'" class="column-content with-sidebar pull-left">
+
+        <div class="list-holder">
+            <div class="list-header">
+                <div class="col">Application Name</div>
+                <div class="col">Environments</div>
+                <div class="col">Servers</div>
+                <div class="col">Activities Scheduled</div>
+                <div class="col text-left">Next Activity</div>
+                <div class="col"></div>
+            </div>
+            <!-- End list-header-->
+            <div class="list-row" data-ng-class="{'show-action':server.showAction}"
+                 data-ng-repeat-start="server in applicationDetails.servers">
+                <div class="list-cell"><a href="javascript:" data-ui-sref="applicationDetails"
+                                          class="status {{server.status}}">{{server.name}}</a></div>
+                <div class="list-cell text-center">{{server.environment}}</div>
+                <div class="list-cell text-center">{{server.servers}}</div>
+                <div class="list-cell text-center">{{server.activities}}</div>
+                <div class="list-cell"><span class="next-activity">{{server.nextActivity}} </span><span
+                        class="time">(in <span>{{server.nextActivityTime}}</span>)</span></div>
+                <div class="list-cell text-right">
+                    <a data-ng-click="applicationDetails.selectedRow.showAction=false;applicationDetails.selectedRow=server;server.showAction=true;"
+                       href="javascript:" class="action"></a>
+
+                    <div data-off-click="applicationDetails.selectedRow.showAction=false;"
+                         data-off-click-filter="'.action'" class="action-popup animate-if"
+                         data-ng-if="server.showAction">
+                        <a href="javascript:" class="close" data-ng-click="server.showAction=false"></a>
+                        <a href="javascript:" class="action-item automation">Automation</a>
+                        <a href="javascript:" class="action-item schedule">View Schedule</a>
+                    </div>
+                </div>
+            </div>
+            <!-- End list-row-->
+            <div class="empty-row" data-ng-repeat-end>
+                <div class="empty-cell"></div>
+            </div>
+            <!-- End list-row-->
+        </div>
+
+    </div>
+    <!-- End column-content-->
+
+    <div class="right-sidebar pull-left">
+        <div class="box">
+            <div class="header">
+                <h4 class="activities">ACTIVITIES
+
+                            <span class="actions pull-right">
+                                <a href="javascript:" class="pull-right action"></a>
+                                <a href="javascript:" id="sidebar-filter"
+                                   data-ng-click="applicationDetails.sidebarFilter = !applicationDetails.sidebarFilter"
+                                   class="pull-right filter"></a>
+                            </span>
+                </h4>
+                <!-- End activities-->
+                <div data-ng-include="'templates/popup/FilterPopup.html'"
+                     data-off-click="applicationDetails.sidebarFilter = false" data-off-click-filter="'#sidebar-filter'"
+                     data-off-click-if="applicationDetails.sidebarFilter" class="popup filter-popup animate-if"
+                     data-ng-if="applicationDetails.sidebarFilter"></div>
+                <!-- End filter-popup-->
+            </div>
+            <!-- End header-->
+
+            <div class="content">
+                <div class="activities">
+                    <div class="activity {{$index%2===1?'alt':''}}"
+                         data-ng-repeat="activity in applicationDetails.activities">
+                        <div class="title" data-ng-bind-html="activity.title"></div>
+                        <span class='time' data-ng-bind-html="activity.time"></span>
+                    </div>
+                </div>
+            </div>
+            <!-- End content-->
+        </div>
+    </div>
+    <!-- End right-sidebar-->
+</div>
+<!--page-content-->
+
+<div data-ng-scrollbars="" class="popup-holder" data-ng-click="hidePopup()" data-ng-if="popup!==''"
+     data-ng-include="'templates/popup/'+popup"></div>
+<!--End popup-->

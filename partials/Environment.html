@@ -1,0 +1,141 @@
+<div class="page-top clearfix">
+
+    <div class="breadcrumb">
+        <a href="javascript:" class="pull-left" data-ui-sref="dashboard">Dashboard</a>
+        <span class="arrow pull-left text-center"></span>
+        <a href="javascript:" class="pull-left" data-ui-sref="applications">Applications</a>
+        <span class="arrow pull-left text-center"></span>
+        <a href="javascript:" class="pull-left" data-ui-sref="applicationDetails">Acme App</a>
+        <span class="arrow pull-left text-center"></span>
+        <span class="current pull-left">Acme App</span>
+    </div>
+    <!-- End breadcrumb-->
+
+    <div class="page-title">
+        <h3 class="title pull-left">Development</h3>
+        <!-- End title-->
+        <div class="server-status pull-right">
+            <div class="server running">
+                <span class="type">Up</span>
+                <span class="count">{{environmentDetails.serverStatus.up}}</span>
+            </div>
+            <div class="server shutdown">
+                <span class="type">Down</span>
+                <span class="count">{{environmentDetails.serverStatus.down}}</span>
+            </div>
+        </div>
+        <!-- End server-status-->
+
+        <div class="app-details pull-right">
+            <div class="info">
+                <span>{{environmentDetails.appServers}}</span> Servers
+            </div>
+        </div>
+        <!-- End app-details-->
+    </div>
+    <!-- End title-->
+
+    <div class="server-time text-center">
+        <div class="time-hold">
+            Uptime: <span class="up">{{environmentDetails.serverTime.uptime}}</span> <span class="hour">hours</span>
+        </div>
+        <div class="time-hold">
+            Downtime: <span class="down">{{environmentDetails.serverTime.downtime}}</span> <span class="hour">hours</span>
+        </div>
+        <div class="time-hold">
+            Cost Savings Overtime: <span class="over">{{environmentDetails.serverTime.overtime}}</span> <span class="hour">/month</span>
+        </div>
+
+    </div>
+    <!-- End server-time-->
+
+    <div class="action-bar">
+
+        <div class="pull-left action-holder">
+            <a href="javascript:" id="period" data-ng-class="{'active':periodOptions.show}" data-ng-click="periodOptions.show=true" class="filter pull-left">Time Period: {{periodOptions.selectedOption}}</a>
+            <div data-ng-include="'templates/popup/PeriodPopup.html'" data-off-click="periodOptions.show = false" data-off-click-filter="'#period'" data-off-click-if="periodOptions.show" class="popup sort-popup animate-if" data-ng-if="periodOptions.show"></div>
+        </div>
+
+        <div class="pull-left action-holder">
+            <a href="javascript:" id="sort-by" data-ng-class="{'active':sortOptions.sortBy}" data-ng-click="sortOptions.sortBy=true" class="filter pull-left">Sort by {{sortOptions.sortOption}}</a>
+            <div data-ng-include="'templates/popup/SortPopup.html'" data-off-click="sortOptions.sortBy = false" data-off-click-filter="'#sort-by'" data-off-click-if="sortOptions.sortBy" class="popup sort-popup animate-if" data-ng-if="sortOptions.sortBy"></div>
+        </div>
+
+        <a href="javascript:" class="filter pull-left">Show all status <i class="up"></i><i class="over"></i><i class="down"></i></a>
+        <div data-ng-include="'templates/popup/SortPopup.html'" data-off-click="applicationData.sortBy = false" data-off-click-filter="'#sort-by'" data-off-click-if="applicationData.sortBy" class="popup sort-popup animate-if" data-ng-if="applicationData.sortBy"></div>
+    </div>
+    <!-- End action-bar-->
+</div>
+<!-- End page-header-->
+
+<div data-ng-scrollbars class="page-content with-breadcrumb">
+
+    <div class="column-content">
+
+        <div class="row">
+            <div class="col col-md-12">
+                <div class="box">
+                    <div class="header">
+                            <span class="actions pull-right">
+                                <a href="javascript:" data-ng-click="showAutomationPopup([92,818])" class="pull-right schedule"></a>
+                                <a href="javascript:" class="pull-right refresh"></a>
+                            </span>
+                    </div>
+                    <!-- End header-->
+                    <div class="content clearfix with-bottom-margin">
+                        <table data-ng-table="tableParams" class="table environment-table table-striped">
+                            <thead>
+                            <tr>
+                                <th class="text-center"><a href="javascript:" class="checkbox" data-ng-class="{'checked':environmentDetails.checkAll}" data-ng-click="checkAllToggle(environmentDetails)"></a> </th>
+                                <th data-ng-if="environmentDetails.filter[0].checked">Server Name</th>
+                                <th data-ng-if="environmentDetails.filter[1].checked" class="text-center">Status</th>
+                                <th data-ng-if="environmentDetails.filter[2].checked" class="text-center">Activities Scheduled</th>
+                                <th data-ng-if="environmentDetails.filter[3].checked">Upcoming Scheduled</th>
+                                <th>
+                                    <a href="javascript:" class="pull-right server-filter" data-ng-click="environmentDetails.isModule = true">+</a>
+                                    <div class="server-filter-popup animate-if" data-ng-if="environmentDetails.isModule">
+                                        <a href="javascript:" class="close" data-ng-click="environmentDetails.isModule = !environmentDetails.isModule"></a>
+                                        <div class="modules">
+                                            <ul>
+                                                <li data-ng-repeat="flter in environmentDetails.filter">
+                                                    <div class="module {{flter.checked?'checked':''}}">
+                                                        {{flter.name}}
+                                                        <a href="javascript:" class="toggle-box pull-right {{flter.checked?'checked':''}}" data-ng-click="flter.checked = !flter.checked"></a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr data-ng-repeat="server in $data">
+                                <td class="text-center"><a href="javascript:" class="checkbox" data-ng-class="{'checked':server.checked}" data-ng-click="checkRow(server);"></a></td>
+                                <td data-ng-if="environmentDetails.filter[0].checked"><a class="server-name" data-ng-click="showAutomationPopup()" href="javascript:">{{server.name}}</a></td>
+                                <td data-ng-if="environmentDetails.filter[1].checked" class="text-center"><span class="status {{server.status}}"></span></td>
+                                <td data-ng-if="environmentDetails.filter[2].checked" class="text-center">{{server.activitySchedule}}</td>
+                                <td data-ng-if="environmentDetails.filter[3].checked"><span class="upcoming" data-ng-bind-html="server.upComingSchedule"></span></td>
+                                <td class="text-right"><a href="javascript:" class="action-btn"></a> </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="pager pull-left">
+                            Show<a href="javascript:" id="pager" data-ng-click="applicationData.pager = true">{{pager.count}}</a>per page
+                            <div data-ng-include="'templates/popup/PagerPopup.html'" data-off-click="applicationData.pager = false" data-off-click-filter="'#pager'" data-off-click-if="applicationData.pager" class="popup pager-popup animate-if" data-ng-if="applicationData.pager"></div>
+                        </div>
+                    </div>
+                    <!-- End content-->
+
+                </div>
+            </div>
+        </div>
+        <!-- End row-->
+    </div>
+    <!-- End column-content-->
+
+</div>
+<!--page-content-->
+
+<div data-ng-scrollbars="" class="popup-holder" data-ng-click="hidePopup()"  data-ng-if="popup!==''" data-ng-include="'templates/popup/'+popup"></div>
+<!--End popup-->

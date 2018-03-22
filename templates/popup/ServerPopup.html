@@ -1,0 +1,49 @@
+<div class="header">
+    Servers (97)
+    <a href="javascript:" class="close" data-ng-click="ServerPopover.close()"></a>
+</div>
+<!--End popup-header-->
+
+<div class="popup-content">
+    <div class="content-top">
+        <div class="cat pull-left">72 <span class="up">Up</span> </div>
+        <div class="cat pull-left">25 <span class="down">Down</span> </div>
+    </div>
+    <!-- End content-top-->
+
+    <div class="details" data-ng-scrollbars>
+        <div class="detail-header"><a href="javascript:" class="toggle-expand pull-left" data-ng-class="{'expand':deveopmentExpand}" data-ng-init="deveopmentExpand = true" data-ng-click="deveopmentExpand = !deveopmentExpand"></a> Development (3)</div>
+        <div data-ng-if="deveopmentExpand">
+            <div class="type">
+                <span class="count">1. </span>
+                <span class="name">DB Server</span>
+                <span class="status up pull-right">Up</span>
+            </div>
+            <div class="type alt">
+                <span class="count">2. </span>
+                <span class="name">Server Name</span>
+                <span class="status down pull-right">Down</span>
+            </div>
+            <div class="type">
+                <span class="count">3. </span>
+                <span class="name">Server Name</span>
+                <span class="status up pull-right">Up</span>
+            </div>
+        </div>
+        <div class="detail-header"><a href="javascript:" class="toggle-expand pull-left" data-ng-class="{'expand':productionExpand}" data-ng-init="productionExpand = true" data-ng-click="productionExpand = !productionExpand"></a>Production (2)</div>
+        <div data-ng-if="productionExpand">
+            <div class="type">
+                <span class="count">1. </span>
+                <span class="name">Server Name</span>
+                <span class="status down pull-right">Down</span>
+            </div>
+            <div class="type alt">
+                <span class="count">2. </span>
+                <span class="name">Server Name</span>
+                <span class="status down pull-right">Down</span>
+            </div>
+        </div>
+    </div>
+    <!-- End details-->
+</div>
+<!--End popup-content-->
